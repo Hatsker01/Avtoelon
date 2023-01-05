@@ -197,28 +197,28 @@ func (r *carsRepasitory) GetAllCars() ([]*pb.Car, error) {
 			&car.Created_at,
 			&updated_at,
 		)
-		if err!=nil{
-			return nil,err
+		if err != nil {
+			return nil, err
 		}
-		if updated_at.Valid{
-			car.Updated_at=updated_at.Time.String()
+		if updated_at.Valid {
+			car.Updated_at = updated_at.Time.String()
 		}
 		cars = append(cars, &car)
 	}
-	return cars,nil
+	return cars, nil
 }
 
-func (r *carsRepasitory) DeleteCar(id string)(*pb.Car,error){
-	car,err:=r.GetCar(id)
-	if err!=nil{
-		return nil,err
+func (r *carsRepasitory) DeleteCar(id string) (*pb.Car, error) {
+	car, err := r.GetCar(id)
+	if err != nil {
+		return nil, err
 	}
-	query:=`UPDATE cars SET deleted_at=$2 where id=$1`
-	_,err=r.db.Exec(query,id,time.Now().UTC())
-	if err!=nil {
-		return nil,err
+	query := `UPDATE cars SET deleted_at=$2 where id=$1`
+	_, err = r.db.Exec(query, id, time.Now().UTC())
+	if err != nil {
+		return nil, err
 	}
-	car.Deleted_at=time.Now().UTC().String()
-	return car,nil
+	car.Deleted_at = time.Now().UTC().String()
+	return car, nil
 
 }
