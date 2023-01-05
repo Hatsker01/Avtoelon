@@ -1,0 +1,493 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/v1/cars": {
+            "post": {
+                "description": "This API for creating new car for selling",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "CreateCar",
+                "parameters": [
+                    {
+                        "description": "CreateCar",
+                        "name": "car",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.CreateCarReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cars/getById/{id}": {
+            "get": {
+                "description": "This API dor getting car by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "GetCarById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Car_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cars/updateCar": {
+            "put": {
+                "description": "This API for updating car",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "UpdateCar",
+                "parameters": [
+                    {
+                        "description": "UpdateCar",
+                        "name": "updateCar",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.UpdateCar"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "structs.Car": {
+            "type": "object",
+            "properties": {
+                "add_info": {
+                    "type": "string"
+                },
+                "additional_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "auction": {
+                    "type": "boolean"
+                },
+                "body_id": {
+                    "type": "integer"
+                },
+                "category_id": {
+                    "type": "integer"
+                },
+                "city_id": {
+                    "type": "integer"
+                },
+                "color_id": {
+                    "type": "integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "drive_unit_id": {
+                    "type": "integer"
+                },
+                "enginee": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "media_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "milage": {
+                    "type": "integer"
+                },
+                "model_id": {
+                    "type": "integer"
+                },
+                "oil_id": {
+                    "type": "integer"
+                },
+                "optic_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "options_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "outside_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "region_id": {
+                    "type": "integer"
+                },
+                "salon_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "transmission_id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.CreateCarReq": {
+            "type": "object",
+            "required": [
+                "add_info",
+                "additional_id",
+                "auction",
+                "body_id",
+                "category_id",
+                "city_id",
+                "color_id",
+                "date",
+                "drive_unit_id",
+                "enginee",
+                "media_id",
+                "milage",
+                "model_id",
+                "oil_id",
+                "optic_id",
+                "options_id",
+                "outside_id",
+                "phone",
+                "price",
+                "region_id",
+                "salon_id",
+                "transmission_id"
+            ],
+            "properties": {
+                "add_info": {
+                    "type": "string"
+                },
+                "additional_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "auction": {
+                    "type": "boolean"
+                },
+                "body_id": {
+                    "type": "integer"
+                },
+                "category_id": {
+                    "type": "integer"
+                },
+                "city_id": {
+                    "type": "integer"
+                },
+                "color_id": {
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "drive_unit_id": {
+                    "type": "integer"
+                },
+                "enginee": {
+                    "type": "string"
+                },
+                "media_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "milage": {
+                    "type": "integer"
+                },
+                "model_id": {
+                    "type": "integer"
+                },
+                "oil_id": {
+                    "type": "integer"
+                },
+                "optic_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "options_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "outside_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "region_id": {
+                    "type": "integer"
+                },
+                "salon_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "transmission_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "structs.Error": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.StandardErrorModel": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/structs.Error"
+                }
+            }
+        },
+        "structs.UpdateCar": {
+            "type": "object",
+            "required": [
+                "add_info",
+                "additional_id",
+                "auction",
+                "body_id",
+                "category_id",
+                "city_id",
+                "color_id",
+                "date",
+                "drive_unit_id",
+                "enginee",
+                "id",
+                "media_id",
+                "milage",
+                "model_id",
+                "oil_id",
+                "optic_id",
+                "options_id",
+                "outside_id",
+                "phone",
+                "price",
+                "region_id",
+                "salon_id",
+                "transmission_id"
+            ],
+            "properties": {
+                "add_info": {
+                    "type": "string"
+                },
+                "additional_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "auction": {
+                    "type": "boolean"
+                },
+                "body_id": {
+                    "type": "integer"
+                },
+                "category_id": {
+                    "type": "integer"
+                },
+                "city_id": {
+                    "type": "integer"
+                },
+                "color_id": {
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "drive_unit_id": {
+                    "type": "integer"
+                },
+                "enginee": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "media_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "milage": {
+                    "type": "integer"
+                },
+                "model_id": {
+                    "type": "integer"
+                },
+                "oil_id": {
+                    "type": "integer"
+                },
+                "optic_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "options_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "outside_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "region_id": {
+                    "type": "integer"
+                },
+                "salon_id": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "transmission_id": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

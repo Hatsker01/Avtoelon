@@ -1,0 +1,338 @@
+definitions:
+  structs.Car:
+    properties:
+      add_info:
+        type: string
+      additional_id:
+        items:
+          type: integer
+        type: array
+      auction:
+        type: boolean
+      body_id:
+        type: integer
+      category_id:
+        type: integer
+      city_id:
+        type: integer
+      color_id:
+        type: integer
+      created_at:
+        type: string
+      date:
+        type: string
+      deleted_at:
+        type: string
+      drive_unit_id:
+        type: integer
+      enginee:
+        type: string
+      id:
+        type: string
+      media_id:
+        items:
+          type: integer
+        type: array
+      milage:
+        type: integer
+      model_id:
+        type: integer
+      oil_id:
+        type: integer
+      optic_id:
+        items:
+          type: integer
+        type: array
+      options_id:
+        items:
+          type: integer
+        type: array
+      outside_id:
+        items:
+          type: integer
+        type: array
+      phone:
+        type: string
+      price:
+        type: integer
+      region_id:
+        type: integer
+      salon_id:
+        items:
+          type: integer
+        type: array
+      transmission_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  structs.CreateCarReq:
+    properties:
+      add_info:
+        type: string
+      additional_id:
+        items:
+          type: integer
+        type: array
+      auction:
+        type: boolean
+      body_id:
+        type: integer
+      category_id:
+        type: integer
+      city_id:
+        type: integer
+      color_id:
+        type: integer
+      date:
+        type: string
+      drive_unit_id:
+        type: integer
+      enginee:
+        type: string
+      media_id:
+        items:
+          type: integer
+        type: array
+      milage:
+        type: integer
+      model_id:
+        type: integer
+      oil_id:
+        type: integer
+      optic_id:
+        items:
+          type: integer
+        type: array
+      options_id:
+        items:
+          type: integer
+        type: array
+      outside_id:
+        items:
+          type: integer
+        type: array
+      phone:
+        type: string
+      price:
+        type: integer
+      region_id:
+        type: integer
+      salon_id:
+        items:
+          type: integer
+        type: array
+      transmission_id:
+        type: integer
+    required:
+    - add_info
+    - additional_id
+    - auction
+    - body_id
+    - category_id
+    - city_id
+    - color_id
+    - date
+    - drive_unit_id
+    - enginee
+    - media_id
+    - milage
+    - model_id
+    - oil_id
+    - optic_id
+    - options_id
+    - outside_id
+    - phone
+    - price
+    - region_id
+    - salon_id
+    - transmission_id
+    type: object
+  structs.Error:
+    properties:
+      message:
+        type: string
+    type: object
+  structs.StandardErrorModel:
+    properties:
+      error:
+        $ref: '#/definitions/structs.Error'
+    type: object
+  structs.UpdateCar:
+    properties:
+      add_info:
+        type: string
+      additional_id:
+        items:
+          type: integer
+        type: array
+      auction:
+        type: boolean
+      body_id:
+        type: integer
+      category_id:
+        type: integer
+      city_id:
+        type: integer
+      color_id:
+        type: integer
+      date:
+        type: string
+      drive_unit_id:
+        type: integer
+      enginee:
+        type: string
+      id:
+        type: string
+      media_id:
+        items:
+          type: integer
+        type: array
+      milage:
+        type: integer
+      model_id:
+        type: integer
+      oil_id:
+        type: integer
+      optic_id:
+        items:
+          type: integer
+        type: array
+      options_id:
+        items:
+          type: integer
+        type: array
+      outside_id:
+        items:
+          type: integer
+        type: array
+      phone:
+        type: string
+      price:
+        type: integer
+      region_id:
+        type: integer
+      salon_id:
+        items:
+          type: integer
+        type: array
+      transmission_id:
+        type: integer
+    required:
+    - add_info
+    - additional_id
+    - auction
+    - body_id
+    - category_id
+    - city_id
+    - color_id
+    - date
+    - drive_unit_id
+    - enginee
+    - id
+    - media_id
+    - milage
+    - model_id
+    - oil_id
+    - optic_id
+    - options_id
+    - outside_id
+    - phone
+    - price
+    - region_id
+    - salon_id
+    - transmission_id
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/cars:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating new car for selling
+      parameters:
+      - description: CreateCar
+        in: body
+        name: car
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateCarReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateCar
+      tags:
+      - car
+  /v1/cars/getById/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API dor getting car by ID
+      parameters:
+      - description: Car_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetCarById
+      tags:
+      - car
+  /v1/cars/updateCar:
+    put:
+      consumes:
+      - application/json
+      description: This API for updating car
+      parameters:
+      - description: UpdateCar
+        in: body
+        name: updateCar
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateCar'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateCar
+      tags:
+      - car
+swagger: "2.0"
