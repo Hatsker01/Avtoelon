@@ -66,6 +66,13 @@ definitions:
       updated_at:
         type: string
     type: object
+  structs.Cars:
+    properties:
+      cars:
+        items:
+          $ref: '#/definitions/structs.Car'
+        type: array
+    type: object
   structs.CreateCarReq:
     properties:
       add_info:
@@ -276,11 +283,63 @@ paths:
       summary: CreateCar
       tags:
       - car
+  /v1/cars/:id:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting car by id
+      parameters:
+      - description: Car_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteCar
+      tags:
+      - car
+  /v1/cars/getAll:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all cars
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Cars'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllCars
+      tags:
+      - car
   /v1/cars/getById/{id}:
     get:
       consumes:
       - application/json
-      description: This API dor getting car by ID
+      description: This API for getting car by ID
       parameters:
       - description: Car_id
         in: path

@@ -80,4 +80,7 @@ type UpdateCar struct{
 	Phone string	`json:"phone" binding:"required"`
 }
 
+type Cars struct{
+	Cars []Car `json:"cars"`
+}
 

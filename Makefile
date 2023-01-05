@@ -14,3 +14,9 @@ lint: ## Run golangci-lint with printing to stdout
 swag-gen:
 	echo ${REGISTRY}
 	swag init -g api/router.go -o api/docs
+
+migrate-up:
+	migrate -source file:./migrations/ -database postgres://postgres:1@localhost:5432/avtoelon up
+
+migrate-down:
+	migrate -source file:./migrations/ -database postgres://postgres:1@localhost:5432/avtoelon down
