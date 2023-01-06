@@ -14,7 +14,7 @@ type outsideRepasitory struct {
 }
 
 func NewOutsideRepasitory(db *sqlx.DB) repo.OutsideRepoInterface {
-	return outsideRepasitory{
+	return &outsideRepasitory{
 		db: db,
 	}
 }

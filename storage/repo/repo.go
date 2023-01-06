@@ -11,5 +11,9 @@ type CarsRepoInterface interface{
 }
 
 type OutsideRepoInterface interface{
-	
+	CreateOutside(outside *pb.CreateOutside)(*pb.Outside,error)
+	UpdateOutside(upOut *pb.Outside)(*pb.Outside,error)
+	GetOutside(id string) (*pb.Outside, error)
+	GetAllOutside() ([]*pb.Outside, error)
+	DeletedOutside(id string) (*pb.Outside, error)
 }
