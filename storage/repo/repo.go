@@ -9,3 +9,7 @@ type CarsRepoInterface interface{
 	GetAllCars()([]*pb.Car,error)
 	DeleteCar(id string)(*pb.Car,error)
 }
+
+type OutsideRepoInterface interface{
+	
+}

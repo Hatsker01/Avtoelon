@@ -69,7 +69,7 @@ func (r *carsRepasitory) CreateCar(car *pb.Car) (*pb.Car, error) {
 }
 
 func (r *carsRepasitory) UpdateCar(upCar *pb.Car) (*pb.Car, error) {
-	query := `UPDATE cars SET VALUE category_id=$2,model_id=$3,body_id=$4,date=$5,price=$6,auction=$7,
+	query := `UPDATE cars SET category_id=$2,model_id=$3,body_id=$4,date=$5,price=$6,auction=$7,
 	enginee=$8,oil_id=$9,transmission_id=$10,milage=$11,color_id=$12,drive_unit_id=$13,outside_id=$14,
 	optic_id=$15,salon_id=$16,media_id=$17,options_id=$18,additionally_id=$19,add_info=$20,region_id=$21,
 	city_id=$22,phone=$23,updated_at=$24 where deleted_at is null RETURNING id,category_id,model_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
