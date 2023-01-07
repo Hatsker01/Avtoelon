@@ -94,3 +94,16 @@ func (r *bodyRepasitory) GetAllBody() ([]*pb.Body, error) {
 	}
 	return bodies, nil
 }
+
+func (r *bodyRepasitory) DeleteBody(id string) (*pb.Body, error) {
+	body, err := r.GetBody(id)
+	if err != nil {
+		return nil, err
+	}
+	query := `UPDATE body SET deleted_at=$2 where deleted_at is null and id=$1`
+	_, err = r.db.Exec(query, id)
+	if err != nil {
+		return nil, err
+	}
+	return body, err
+}
