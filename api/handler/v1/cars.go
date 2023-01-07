@@ -100,15 +100,15 @@ func (h *handlerV1) GetCar(c *gin.Context) {
 
 	guid := c.Param("id")
 
-	response,err:=postgres.NewCarsRepo(h.db).GetCar(guid)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewCarsRepo(h.db).GetCar(guid)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting car by id",logger.Error(err))
+		h.log.Error("failed while getting car by id", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // GetAllCars ...
@@ -121,42 +121,42 @@ func (h *handlerV1) GetCar(c *gin.Context) {
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/cars/getAll [get]
-func (h *handlerV1) GetAllCars(c *gin.Context){
-	response,err:=postgres.NewCarsRepo(h.db).GetAllCars()
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+func (h *handlerV1) GetAllCars(c *gin.Context) {
+	response, err := postgres.NewCarsRepo(h.db).GetAllCars()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting all cars info",logger.Error(err))
+		h.log.Error("failed while getting all cars info", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // DeleteCar ....
 // @Summary DeleteCar
 // @Description This API for deleting car by id
 // @Tags car
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Param id path string true "Car_Id"
 // @Success 200 {object} structs.Car
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/cars/:id [delete]
-func (h *handlerV1) DeleteCar(c *gin.Context){
+func (h *handlerV1) DeleteCar(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id:=c.Param("id")
-	
-	response,err:=postgres.NewCarsRepo(h.db).DeleteCar(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	id := c.Param("id")
+
+	response, err := postgres.NewCarsRepo(h.db).DeleteCar(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while deleting car by id",logger.Error(err))
+		h.log.Error("failed while deleting car by id", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }

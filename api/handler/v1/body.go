@@ -91,39 +91,39 @@ func (h *handlerV1) GetBody(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id:=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewBodyRepo(h.db).GetBody(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewBodyRepo(h.db).GetBody(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("error while getting body by id",logger.Error(err))
+		h.log.Error("error while getting body by id", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // GetAllBody ...
 // @Summary GetAllBody
 // @Description This API for getting body by id
 // @Tags body
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Success 200 {object} structs.Bodies
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/bodies [get]
-func (h *handlerV1) GetAllBody(c *gin.Context){
-	response,err:=postgres.NewBodyRepo(h.db).GetAllBody()
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+func (h *handlerV1) GetAllBody(c *gin.Context) {
+	response, err := postgres.NewBodyRepo(h.db).GetAllBody()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting all bodies",logger.Error(err))
+		h.log.Error("failed while getting all bodies", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // DeleteBody ...
@@ -137,20 +137,19 @@ func (h *handlerV1) GetAllBody(c *gin.Context){
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/body/:id [delete]
-func (h *handlerV1) DeleteBody(c *gin.Context){
+func (h *handlerV1) DeleteBody(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id:=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewBodyRepo(h.db).DeleteBody(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewBodyRepo(h.db).DeleteBody(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while deleting body",logger.Error(err))
+		h.log.Error("failed while deleting body", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
-
