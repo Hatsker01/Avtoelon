@@ -17,3 +17,11 @@ type OutsideRepoInterface interface{
 	GetAllOutside() ([]*pb.Outside, error)
 	DeletedOutside(id string) (*pb.Outside, error)
 }
+
+type CategoryRepoInterface interface{
+	CreateCategory(category *pb.CategoryCreateReq)(*pb.Category,error)
+	UpdateCategory(category *pb.Category)(*pb.Category,error)
+	GetCategory(id string)(*pb.Category,error)
+	GetAllCategory()([]*pb.Category,error)
+	DeleteCategory(id string)(*pb.Category,error)
+}

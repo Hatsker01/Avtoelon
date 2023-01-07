@@ -73,6 +73,31 @@ definitions:
           $ref: '#/definitions/structs.Car'
         type: array
     type: object
+  structs.Categories:
+    properties:
+      categories:
+        items:
+          $ref: '#/definitions/structs.Category'
+        type: array
+    type: object
+  structs.Category:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.CategoryCreateReq:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateCarReq:
     properties:
       add_info:
@@ -155,10 +180,35 @@ definitions:
     - salon_id
     - transmission_id
     type: object
+  structs.CreateOutside:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.Error:
     properties:
       message:
         type: string
+    type: object
+  structs.Outside:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Outsides:
+    properties:
+      Outsides:
+        items:
+          $ref: '#/definitions/structs.Outside'
+        type: array
     type: object
   structs.StandardErrorModel:
     properties:
@@ -249,6 +299,23 @@ definitions:
     - region_id
     - salon_id
     - transmission_id
+    type: object
+  structs.UpdateCategory:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  structs.UpdateOutsideReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
     type: object
 info:
   contact: {}
@@ -394,4 +461,279 @@ paths:
       summary: UpdateCar
       tags:
       - car
+  /v1/category:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating category
+      parameters:
+      - description: CreateCategoryReq
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CategoryCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateCategory
+      tags:
+      - category
+    put:
+      consumes:
+      - application/json
+      description: This API for updating category
+      parameters:
+      - description: UpdateCategory
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateCategory
+      tags:
+      - category
+  /v1/category/:id:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting category by id
+      parameters:
+      - description: Category_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteCategory
+      tags:
+      - category
+    get:
+      consumes:
+      - application/json
+      description: This API for getting category by id
+      parameters:
+      - description: Category_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Category'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetCategory
+      tags:
+      - category
+  /v1/category/getAll:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all categories
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Categories'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllCategory
+      tags:
+      - category
+  /v1/outside:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating outside type for cars
+      parameters:
+      - description: CreateOutside
+        in: body
+        name: CreateOutside
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateOutside'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.CreateOutside'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateOutside
+      tags:
+      - outside
+    put:
+      consumes:
+      - application/json
+      description: This API for updating
+      parameters:
+      - description: UpdateOutside
+        in: body
+        name: UpdateOutside
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateOutsideReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Outside'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateOutside
+      tags:
+      - outside
+  /v1/outside/:id:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting outside by id
+      parameters:
+      - description: Outside_ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Outside'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeletedOutside
+      tags:
+      - outside
+  /v1/outside/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting outside by ID
+      parameters:
+      - description: Outside_ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Outside'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetOutside
+      tags:
+      - outside
+  /v1/outside/getAll:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all outsides
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Outsides'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllOutside
+      tags:
+      - outside
 swagger: "2.0"
