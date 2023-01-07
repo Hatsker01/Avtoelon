@@ -33,3 +33,7 @@ type ModelRepoInterface interface{
 	GetAllModels()([]*pb.Model,error)
 	DeleteModel(id string)(*pb.Model,error)
 }
+
+type BodyRepoInterface interface{
+	
+}
