@@ -25,3 +25,11 @@ type CategoryRepoInterface interface{
 	GetAllCategory()([]*pb.Category,error)
 	DeleteCategory(id string)(*pb.Category,error)
 }
+
+type ModelRepoInterface interface{
+	CreateModel(model *pb.CreateModelReq)(*pb.Model,error)
+	UpdateModel(upModel *pb.UpdateModel)(*pb.Model,error)
+	GetModel(id string)(*pb.Model,error)
+	GetAllModels()([]*pb.Model,error)
+	DeleteModel(id string)(*pb.Model,error)
+}

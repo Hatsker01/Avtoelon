@@ -41,6 +41,13 @@ func New(option Option) *gin.Engine {
 	api.GET("/outside/getAll", handlerV1.GetAllOutside)
 	api.DELETE("/outside/:id", handlerV1.DeletedOutside)
 
+	//Model
+	api.POST("/model",handlerV1.CreateModel)
+	api.PUT("/model",handlerV1.UpdateModel)
+	api.GET("/model/:id",handlerV1.GetModel)
+	api.GET("/model/getAll",handlerV1.GetAllModels)
+	api.DELETE("/model/:id",handlerV1.DeleteModel)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

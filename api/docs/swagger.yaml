@@ -180,6 +180,13 @@ definitions:
     - salon_id
     - transmission_id
     type: object
+  structs.CreateModelReq:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateOutside:
     properties:
       name:
@@ -191,6 +198,24 @@ definitions:
     properties:
       message:
         type: string
+    type: object
+  structs.Model:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Models:
+    properties:
+      models:
+        items:
+          $ref: '#/definitions/structs.Model'
+        type: array
     type: object
   structs.Outside:
     properties:
@@ -301,6 +326,16 @@ definitions:
     - transmission_id
     type: object
   structs.UpdateCategory:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  structs.UpdateModel:
     properties:
       id:
         type: integer
@@ -596,6 +631,141 @@ paths:
       summary: GetAllCategory
       tags:
       - category
+  /v1/model:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating model
+      parameters:
+      - description: CreateModelReq
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateModelReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Model'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateModel
+      tags:
+      - model
+    put:
+      consumes:
+      - application/json
+      description: This API for updating model
+      parameters:
+      - description: UpdateModel
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Model'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateModel
+      tags:
+      - model
+  /v1/model/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting model by id
+      parameters:
+      - description: Model_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Model'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteModel
+      tags:
+      - model
+    get:
+      consumes:
+      - application/json
+      description: This API for getting model by id
+      parameters:
+      - description: Model_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Model'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetModel
+      tags:
+      - model
+  /v1/model/getAll:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all models
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Models'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllModels
+      tags:
+      - model
   /v1/outside:
     post:
       consumes:
