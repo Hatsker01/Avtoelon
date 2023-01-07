@@ -1,4 +1,22 @@
 definitions:
+  structs.Bodies:
+    properties:
+      bodies:
+        items:
+          $ref: '#/definitions/structs.Body'
+        type: array
+    type: object
+  structs.Body:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
   structs.Car:
     properties:
       add_info:
@@ -92,6 +110,13 @@ definitions:
         type: string
     type: object
   structs.CategoryCreateReq:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  structs.CreateBody:
     properties:
       name:
         type: string
@@ -240,6 +265,16 @@ definitions:
       error:
         $ref: '#/definitions/structs.Error'
     type: object
+  structs.UpdateBody:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
   structs.UpdateCar:
     properties:
       add_info:
@@ -355,6 +390,146 @@ definitions:
 info:
   contact: {}
 paths:
+  /v1/bodies:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting body by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Bodies'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllBody
+      tags:
+      - body
+  /v1/body:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating body
+      parameters:
+      - description: CreateBody
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Body'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateBody
+      tags:
+      - body
+    put:
+      consumes:
+      - application/json
+      description: This API for updating body
+      parameters:
+      - description: Update_Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Body'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateBody
+      tags:
+      - body
+  /v1/body/:id:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting body
+      parameters:
+      - description: Body_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Body'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteBody
+      tags:
+      - body
+  /v1/body/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting body by id
+      parameters:
+      - description: Body_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Body'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetBody
+      tags:
+      - body
   /v1/cars:
     post:
       consumes:
