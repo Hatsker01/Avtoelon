@@ -212,6 +212,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateOil:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateOutside:
     properties:
       name:
@@ -240,6 +247,24 @@ definitions:
       models:
         items:
           $ref: '#/definitions/structs.Model'
+        type: array
+    type: object
+  structs.Oil:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Oils:
+    properties:
+      oils:
+        items:
+          $ref: '#/definitions/structs.Oil'
         type: array
     type: object
   structs.Outside:
@@ -371,6 +396,16 @@ definitions:
     - name
     type: object
   structs.UpdateModel:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  structs.UpdateOil:
     properties:
       id:
         type: integer
@@ -941,6 +976,145 @@ paths:
       summary: GetAllModels
       tags:
       - model
+  /v1/oil:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating oil
+      parameters:
+      - description: Create_oil
+        in: body
+        name: oil
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateOil'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Oil'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateOil
+      tags:
+      - oil
+    put:
+      consumes:
+      - application/json
+      description: This API for updating oil
+      parameters:
+      - description: Update_oil
+        in: body
+        name: oil
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateOil'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Oil'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateOil
+      tags:
+      - oil
+  /v1/oil/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting oil by ID
+      parameters:
+      - description: Oil_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Oil'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteOil
+      tags:
+      - oil
+    get:
+      consumes:
+      - application/json
+      description: This API for getting oil by ID
+      parameters:
+      - description: Oil_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Oil'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetOilById
+      tags:
+      - oil
+  /v1/oils:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all oils
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Oils'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllOils
+      tags:
+      - oil
   /v1/outside:
     post:
       consumes:
