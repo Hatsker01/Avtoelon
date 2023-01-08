@@ -41,3 +41,11 @@ type BodyRepoInterface interface {
 	GetAllBody() ([]*pb.Body, error)
 	DeleteBody(id string) (*pb.Body, error)
 }
+
+type OilRepoInterface interface{
+	Create(oil *pb.CreateOil)(*pb.Oil,error)
+	Update(upOil *pb.UpdateOil)(*pb.Oil,error)
+	Get(id string)(*pb.Oil,error)
+	GetAll()([]*pb.Oil,error)
+	Delete(id string)(*pb.Oil,error)
+}

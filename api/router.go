@@ -42,18 +42,25 @@ func New(option Option) *gin.Engine {
 	api.DELETE("/outside/:id", handlerV1.DeletedOutside)
 
 	//Model
-	api.POST("/model",handlerV1.CreateModel)
-	api.PUT("/model",handlerV1.UpdateModel)
-	api.GET("/model/:id",handlerV1.GetModel)
-	api.GET("/model/getAll",handlerV1.GetAllModels)
-	api.DELETE("/model/:id",handlerV1.DeleteModel)
+	api.POST("/model", handlerV1.CreateModel)
+	api.PUT("/model", handlerV1.UpdateModel)
+	api.GET("/model/:id", handlerV1.GetModel)
+	api.GET("/model/getAll", handlerV1.GetAllModels)
+	api.DELETE("/model/:id", handlerV1.DeleteModel)
 
 	//Body
-	api.POST("/body",handlerV1.CreateBody)
-	api.PUT("/body",handlerV1.UpdateBody)
-	api.GET("/body/:id",handlerV1.GetBody)
-	api.GET("/bodies",handlerV1.GetAllBody)
-	api.DELETE("/body/:id",handlerV1.DeleteBody)
+	api.POST("/body", handlerV1.CreateBody)
+	api.PUT("/body", handlerV1.UpdateBody)
+	api.GET("/body/:id", handlerV1.GetBody)
+	api.GET("/bodies", handlerV1.GetAllBody)
+	api.DELETE("/body/:id", handlerV1.DeleteBody)
+
+	//Oil
+	api.POST("/oil", handlerV1.CreateOil)
+	api.PUT("/oil", handlerV1.UpdateOil)
+	api.GET("/oil/:id", handlerV1.GetOil)
+	api.GET("/oils", handlerV1.GetAllOils)
+	api.DELETE("/oil/:id", handlerV1.DeleteOil)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
