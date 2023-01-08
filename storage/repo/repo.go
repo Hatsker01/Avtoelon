@@ -49,3 +49,7 @@ type OilRepoInterface interface{
 	GetAll()([]*pb.Oil,error)
 	Delete(id string)(*pb.Oil,error)
 }
+
+type TransmissionRepoInterface interface{
+	
+}
