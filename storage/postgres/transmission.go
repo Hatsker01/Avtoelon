@@ -14,7 +14,7 @@ type transmissionRepasitory struct {
 	db *sqlx.DB
 }
 
-func NewTransmiddionRepasitory(db *sqlx.DB) repo.TransmissionRepoInterface {
+func NewTransmissionRepasitory(db *sqlx.DB) repo.TransmissionRepoInterface {
 	return &transmissionRepasitory{
 		db: db,
 	}

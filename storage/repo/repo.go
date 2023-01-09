@@ -42,14 +42,18 @@ type BodyRepoInterface interface {
 	DeleteBody(id string) (*pb.Body, error)
 }
 
-type OilRepoInterface interface{
-	Create(oil *pb.CreateOil)(*pb.Oil,error)
-	Update(upOil *pb.UpdateOil)(*pb.Oil,error)
-	Get(id string)(*pb.Oil,error)
-	GetAll()([]*pb.Oil,error)
-	Delete(id string)(*pb.Oil,error)
+type OilRepoInterface interface {
+	Create(oil *pb.CreateOil) (*pb.Oil, error)
+	Update(upOil *pb.UpdateOil) (*pb.Oil, error)
+	Get(id string) (*pb.Oil, error)
+	GetAll() ([]*pb.Oil, error)
+	Delete(id string) (*pb.Oil, error)
 }
 
-type TransmissionRepoInterface interface{
-	
+type TransmissionRepoInterface interface {
+	Create(trans *pb.CreateTrans) (*pb.Transmission, error)
+	Update(upTrans *pb.UpdateTrans) (*pb.Transmission, error)
+	Get(id string) (*pb.Transmission, error)
+	GetAll() ([]*pb.Transmission, error)
+	Delete(id string) (*pb.Transmission, error)
 }

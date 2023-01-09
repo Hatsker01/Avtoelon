@@ -16,6 +16,6 @@ type UpdateTrans struct {
 	Name string `json:"name" binding:"required"`
 }
 
-type Tansmissions struct{
+type Transmissions struct{
 	Transmissions []Transmission `json"transmissions"`
 }

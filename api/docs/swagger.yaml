@@ -226,6 +226,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateTrans:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.Error:
     properties:
       message:
@@ -289,6 +296,24 @@ definitions:
     properties:
       error:
         $ref: '#/definitions/structs.Error'
+    type: object
+  structs.Transmission:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Transmissions:
+    properties:
+      transmissions:
+        items:
+          $ref: '#/definitions/structs.Transmission'
+        type: array
     type: object
   structs.UpdateBody:
     properties:
@@ -421,6 +446,16 @@ definitions:
         type: integer
       name:
         type: string
+    type: object
+  structs.UpdateTrans:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
     type: object
 info:
   contact: {}
@@ -1255,4 +1290,143 @@ paths:
       summary: GetAllOutside
       tags:
       - outside
+  /v1/transmission:
+    post:
+      consumes:
+      - application/json
+      description: This API forcreating transmission
+      parameters:
+      - description: Transmission
+        in: body
+        name: transmission
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateTrans'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Transmission'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateTransmission
+      tags:
+      - transmission
+    put:
+      consumes:
+      - application/json
+      description: This API for updating transmission
+      parameters:
+      - description: Update_Transmission
+        in: body
+        name: trans
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateTrans'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Transmission'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateTransmission
+      tags:
+      - transmission
+  /v1/transmission/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting transmission
+      parameters:
+      - description: Transmission_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Transmission'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteTransmission
+      tags:
+      - transmission
+    get:
+      consumes:
+      - application/json
+      description: This API for getting transmission by id
+      parameters:
+      - description: Transmission_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Transmission'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetTransmissionById
+      tags:
+      - transmission
+  /v1/transmissions:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all transmission
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Transmissions'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllTransmission
+      tags:
+      - transmission
 swagger: "2.0"
