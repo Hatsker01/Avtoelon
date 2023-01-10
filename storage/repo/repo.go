@@ -57,3 +57,11 @@ type TransmissionRepoInterface interface {
 	GetAll() ([]*pb.Transmission, error)
 	Delete(id string) (*pb.Transmission, error)
 }
+
+type ColorRepoInterface interface {
+	Create(color *pb.CreateColorReq) (*pb.Color, error)
+	Update(upColor *pb.UpdateColor) (*pb.Color, error)
+	Get(id string) (*pb.Color, error)
+	GetAll() ([]*pb.Color, error)
+	Delete(id string) (*pb.Color, error)
+}
