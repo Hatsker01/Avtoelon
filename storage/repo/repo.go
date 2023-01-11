@@ -66,10 +66,18 @@ type ColorRepoInterface interface {
 	Delete(id string) (*pb.Color, error)
 }
 
-type DriveUnitRepoInterface interface{
+type DriveUnitRepoInterface interface {
 	Create(dr *pb.DriveUnitCreateReq) (*pb.Drive_Unit, error)
 	Update(dr *pb.UpdateDriveUnit) (*pb.Drive_Unit, error)
 	Get(id string) (*pb.Drive_Unit, error)
 	GetAll() ([]*pb.Drive_Unit, error)
 	Delete(id string) (*pb.Drive_Unit, error)
+}
+
+type OpticRepoInterface interface {
+	Create(optic *pb.CreateOptic) (*pb.Optic, error)
+	Update(upOptic *pb.UpdateOpticReq) (*pb.Optic, error)
+	Get(id string) (*pb.Optic, error)
+	GetAll() ([]*pb.Optic, error)
+	Delete(id string) (*pb.Optic, error)
 }
