@@ -81,3 +81,11 @@ type OpticRepoInterface interface {
 	GetAll() ([]*pb.Optic, error)
 	Delete(id string) (*pb.Optic, error)
 }
+
+type SalonRepoInterface interface {
+	Create(salon *pb.CreateSalon) (*pb.Salon, error)
+	Update(upSalon *pb.UpdateSalonReq) (*pb.Salon, error)
+	Get(id string) (*pb.Salon, error)
+	GetAll() ([]*pb.Salon, error)
+	Delete(id string) (*pb.Salon, error)
+}

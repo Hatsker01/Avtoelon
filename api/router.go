@@ -83,7 +83,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/drives", handlerV1.GetAllDriveUnits)
 	api.DELETE("/drive/:id", handlerV1.DeleteDriveUnit)
 
-	// Optic
+	//Optic
 	api.POST("/optic", handlerV1.CreateOptic)
 	api.PUT("/optic", handlerV1.UpdateOptic)
 	api.GET("/optic/:id", handlerV1.GetOptic)
