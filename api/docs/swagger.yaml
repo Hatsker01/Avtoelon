@@ -244,6 +244,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateOptic:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateOutside:
     properties:
       name:
@@ -322,6 +329,24 @@ definitions:
       oils:
         items:
           $ref: '#/definitions/structs.Oil'
+        type: array
+    type: object
+  structs.Optic:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Optics:
+    properties:
+      Optics:
+        items:
+          $ref: '#/definitions/structs.Outside'
         type: array
     type: object
   structs.Outside:
@@ -509,6 +534,13 @@ definitions:
     required:
     - id
     - name
+    type: object
+  structs.UpdateOpticReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
     type: object
   structs.UpdateOutsideReq:
     properties:
@@ -1498,6 +1530,145 @@ paths:
       summary: GetAllOils
       tags:
       - oil
+  /v1/optic:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating Optic for cars
+      parameters:
+      - description: CreateOptic
+        in: body
+        name: optic
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateOptic'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Optic'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateOptic
+      tags:
+      - optic
+    put:
+      consumes:
+      - application/json
+      description: This API for creating optic for cars
+      parameters:
+      - description: Update_Optic
+        in: body
+        name: optic
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateOpticReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Optic'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateOptic
+      tags:
+      - optic
+  /v1/optic/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting optic by id
+      parameters:
+      - description: Optic_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Optic'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteOptic
+      tags:
+      - optic
+    get:
+      consumes:
+      - application/json
+      description: This API for getting optic by ID
+      parameters:
+      - description: Optic_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Optic'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetOpticById
+      tags:
+      - optic
+  /v1/optics:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all optics
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Optics'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllOptics
+      tags:
+      - optic
   /v1/outside:
     post:
       consumes:

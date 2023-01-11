@@ -134,7 +134,7 @@ func (h *handlerV1) GetAllOptics(c *gin.Context) {
 // @Param id path string true "Optic_id"
 // @Success 200 {object} structs.Optic
 // @Failure 400 {object} structs.StandardErrorModel
-// @Failure 500 {object} structs.SrandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/optic/{id} [delete]
 func (h *handlerV1) DeleteOptic(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
