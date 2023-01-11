@@ -65,3 +65,11 @@ type ColorRepoInterface interface {
 	GetAll() ([]*pb.Color, error)
 	Delete(id string) (*pb.Color, error)
 }
+
+type DriveUnitRepoInterface interface{
+	Create(dr *pb.DriveUnitCreateReq) (*pb.Drive_Unit, error)
+	Update(dr *pb.UpdateDriveUnit) (*pb.Drive_Unit, error)
+	Get(id string) (*pb.Drive_Unit, error)
+	GetAll() ([]*pb.Drive_Unit, error)
+	Delete(id string) (*pb.Drive_Unit, error)
+}
