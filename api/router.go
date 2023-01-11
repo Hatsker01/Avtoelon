@@ -90,6 +90,13 @@ func New(option Option) *gin.Engine {
 	api.GET("/optics", handlerV1.GetAllOptics)
 	api.DELETE("/optic/:id", handlerV1.DeleteOptic)
 
+	//Salon
+	api.POST("/salon", handlerV1.CreateSalon)
+	api.PUT("/salon", handlerV1.UpdateSalon)
+	api.GET("/salon/:id", handlerV1.GetSalonById)
+	api.GET("/salons", handlerV1.GetAllSalons)
+	api.DELETE("/salon/:id", handlerV1.DeleteSalon)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

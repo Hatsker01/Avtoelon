@@ -1911,6 +1911,216 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/salon": {
+            "put": {
+                "description": "This API for updating salon for cars",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "salon"
+                ],
+                "parameters": [
+                    {
+                        "description": "UpdateSalon",
+                        "name": "salon",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.UpdateSalonReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Salon"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "This API for creating salon",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "salon"
+                ],
+                "summary": "CreateSalon",
+                "parameters": [
+                    {
+                        "description": "CreateSalon",
+                        "name": "salon",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.CreateSalon"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Salon"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/salon/{id}": {
+            "get": {
+                "description": "This API for getting salon by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "salon"
+                ],
+                "summary": "GetSalonById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Salon_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Salon"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This API for deleting salon by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "salon"
+                ],
+                "summary": "DeleteSalon",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Salon_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Model"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/salons": {
+            "get": {
+                "description": "This API for getting all salons",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "salon"
+                ],
+                "summary": "GetAllSalons",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Salons"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/transmission": {
             "put": {
                 "description": "This API for updating transmission",
@@ -2510,6 +2720,17 @@ const docTemplate = `{
                 }
             }
         },
+        "structs.CreateSalon": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "structs.CreateTrans": {
             "type": "object",
             "required": [
@@ -2673,6 +2894,34 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "Outsides": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/structs.Outside"
+                    }
+                }
+            }
+        },
+        "structs.Salon": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.Salons": {
+            "type": "object",
+            "properties": {
+                "salons": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/structs.Outside"
@@ -2935,6 +3184,17 @@ const docTemplate = `{
             }
         },
         "structs.UpdateOutsideReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.UpdateSalonReq": {
             "type": "object",
             "properties": {
                 "id": {

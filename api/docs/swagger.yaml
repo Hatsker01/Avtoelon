@@ -258,6 +258,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateSalon:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateTrans:
     properties:
       name:
@@ -363,6 +370,24 @@ definitions:
   structs.Outsides:
     properties:
       Outsides:
+        items:
+          $ref: '#/definitions/structs.Outside'
+        type: array
+    type: object
+  structs.Salon:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Salons:
+    properties:
+      salons:
         items:
           $ref: '#/definitions/structs.Outside'
         type: array
@@ -543,6 +568,13 @@ definitions:
         type: string
     type: object
   structs.UpdateOutsideReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  structs.UpdateSalonReq:
     properties:
       id:
         type: integer
@@ -1809,6 +1841,144 @@ paths:
       summary: GetAllOutside
       tags:
       - outside
+  /v1/salon:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating salon
+      parameters:
+      - description: CreateSalon
+        in: body
+        name: salon
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateSalon'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Salon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateSalon
+      tags:
+      - salon
+    put:
+      consumes:
+      - application/json
+      description: This API for updating salon for cars
+      parameters:
+      - description: UpdateSalon
+        in: body
+        name: salon
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateSalonReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Salon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      tags:
+      - salon
+  /v1/salon/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting salon by id
+      parameters:
+      - description: Salon_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Model'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteSalon
+      tags:
+      - salon
+    get:
+      consumes:
+      - application/json
+      description: This API for getting salon by id
+      parameters:
+      - description: Salon_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Salon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetSalonById
+      tags:
+      - salon
+  /v1/salons:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all salons
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Salons'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllSalons
+      tags:
+      - salon
   /v1/transmission:
     post:
       consumes:
