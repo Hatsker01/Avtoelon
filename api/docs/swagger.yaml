@@ -258,6 +258,31 @@ definitions:
     required:
     - name
     type: object
+  structs.Drive_Unit:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.DriveUnitCreateReq:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  structs.DriveUnits:
+    properties:
+      drive_units:
+        items:
+          $ref: '#/definitions/structs.Drive_Unit'
+        type: array
+    type: object
   structs.Error:
     properties:
       message:
@@ -446,6 +471,16 @@ definitions:
     - name
     type: object
   structs.UpdateColor:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  structs.UpdateDriveUnit:
     properties:
       id:
         type: integer
@@ -1050,6 +1085,145 @@ paths:
       summary: GetAllColors
       tags:
       - color
+  /v1/drive:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating drive unit
+      parameters:
+      - description: Drive_unit
+        in: body
+        name: drive
+        required: true
+        schema:
+          $ref: '#/definitions/structs.DriveUnitCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Drive_Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateDiriveUnit
+      tags:
+      - drive_unit
+    put:
+      consumes:
+      - application/json
+      description: This API for updating drive_unit
+      parameters:
+      - description: UpdateDriveUnit
+        in: body
+        name: drive
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateDriveUnit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Drive_Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateDriveUnit
+      tags:
+      - drive_unit
+  /v1/drive/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting drive_unit by id
+      parameters:
+      - description: Drive_Unit_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Drive_Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteDriveUnit
+      tags:
+      - drive_unit
+    get:
+      consumes:
+      - application/json
+      description: This API for getting drive_unit by id
+      parameters:
+      - description: Drive_Unit_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Drive_Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetDriveUnit
+      tags:
+      - drive_unit
+  /v1/drives:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all drive_units
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.DriveUnits'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllDriveUnit
+      tags:
+      - drive_unit
   /v1/model:
     post:
       consumes:
