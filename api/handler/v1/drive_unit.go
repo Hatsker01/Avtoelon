@@ -92,15 +92,15 @@ func (h *handlerV1) GetDriveUnit(c *gin.Context) {
 
 	id := c.Param("id")
 
-	response,err:=postgres.NewDriveUnitRepasitory(h.db).Get(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewDriveUnitRepasitory(h.db).Get(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting drive_unit by id",logger.Error(err))
+		h.log.Error("failed while getting drive_unit by id", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // GetAllDriveUnits ...
@@ -113,16 +113,16 @@ func (h *handlerV1) GetDriveUnit(c *gin.Context) {
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/drives [get]
-func (h *handlerV1) GetAllDriveUnits(c *gin.Context){
-	response,err:=postgres.NewDriveUnitRepasitory(h.db).GetAll()
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+func (h *handlerV1) GetAllDriveUnits(c *gin.Context) {
+	response, err := postgres.NewDriveUnitRepasitory(h.db).GetAll()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting all drive_units",logger.Error(err))
+		h.log.Error("failed while getting all drive_units", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // DeleteDriveUnit ...
@@ -136,19 +136,19 @@ func (h *handlerV1) GetAllDriveUnits(c *gin.Context){
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/drive/{id} [delete]
-func (h *handlerV1) DeleteDriveUnit(c *gin.Context){
+func (h *handlerV1) DeleteDriveUnit(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id :=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewDriveUnitRepasitory(h.db).Delete(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewDriveUnitRepasitory(h.db).Delete(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while deleting drive_unit",logger.Error(err))
+		h.log.Error("failed while deleting drive_unit", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }

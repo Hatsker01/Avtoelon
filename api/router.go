@@ -77,11 +77,11 @@ func New(option Option) *gin.Engine {
 	api.DELETE("/color/:id", handlerV1.DeleteColor)
 
 	//Drive_Unit
-	api.POST("/drive",handlerV1.CreateDrive)
-	api.PUT("/drive",handlerV1.UpdateDriveUnit)
-	api.GET("/drive/:id",handlerV1.GetDriveUnit)
-	api.GET("/drives",handlerV1.GetAllDriveUnits)
-	api.DELETE("/drive/:id",handlerV1.DeleteDriveUnit)
+	api.POST("/drive", handlerV1.CreateDrive)
+	api.PUT("/drive", handlerV1.UpdateDriveUnit)
+	api.GET("/drive/:id", handlerV1.GetDriveUnit)
+	api.GET("/drives", handlerV1.GetAllDriveUnits)
+	api.DELETE("/drive/:id", handlerV1.DeleteDriveUnit)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
