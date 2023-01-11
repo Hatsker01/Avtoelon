@@ -69,6 +69,13 @@ func New(option Option) *gin.Engine {
 	api.GET("/transmissions", handlerV1.GetAllTrans)
 	api.DELETE("/transmission/:id", handlerV1.DeleteTransmission)
 
+	//Color
+	api.POST("/color", handlerV1.CreateColor)
+	api.PUT("/color", handlerV1.UpdateColor)
+	api.GET("/color/:id", handlerV1.GetColor)
+	api.GET("/colors", handlerV1.GetAllColors)
+	api.DELETE("/color/:id", handlerV1.DeleteColor)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

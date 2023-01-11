@@ -116,6 +116,24 @@ definitions:
     required:
     - name
     type: object
+  structs.Color:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Colors:
+    properties:
+      colors:
+        items:
+          $ref: '#/definitions/structs.Model'
+        type: array
+    type: object
   structs.CreateBody:
     properties:
       name:
@@ -204,6 +222,13 @@ definitions:
     - region_id
     - salon_id
     - transmission_id
+    type: object
+  structs.CreateColorReq:
+    properties:
+      name:
+        type: string
+    required:
+    - name
     type: object
   structs.CreateModelReq:
     properties:
@@ -411,6 +436,16 @@ definitions:
     - transmission_id
     type: object
   structs.UpdateCategory:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  structs.UpdateColor:
     properties:
       id:
         type: integer
@@ -876,6 +911,145 @@ paths:
       summary: GetAllCategory
       tags:
       - category
+  /v1/color:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating color
+      parameters:
+      - description: CreateColor
+        in: body
+        name: color
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateColorReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Color'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateColor
+      tags:
+      - color
+    put:
+      consumes:
+      - application/json
+      description: This API for updating color
+      parameters:
+      - description: UpdateColor
+        in: body
+        name: color
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateColor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Color'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateColor
+      tags:
+      - color
+  /v1/color/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting color by id
+      parameters:
+      - description: Color_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Color'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteColor
+      tags:
+      - color
+    get:
+      consumes:
+      - application/json
+      description: This API for getting color by id
+      parameters:
+      - description: Color_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Color'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetColorById
+      tags:
+      - color
+  /v1/colors:
+    get:
+      consumes:
+      - application/json
+      description: This APi for gettig all Colors
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Colors'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllColors
+      tags:
+      - color
   /v1/model:
     post:
       consumes:
