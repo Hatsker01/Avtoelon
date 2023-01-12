@@ -113,3 +113,11 @@ type AdditionalsRepoInterface interface {
 	GetAll() ([]*pb.Additional, error)
 	Delete(id string) (*pb.Additional, error)
 }
+
+type RegionsRepoInterface interface {
+	Create(region *pb.CreateRegion) (*pb.Region, error)
+	Update(upRegion *pb.UpdateRegionReq) (*pb.Region, error)
+	Get(id string) (*pb.Region, error)
+	GetAll() ([]*pb.Region, error)
+	Delete(id string) (*pb.Region, error)
+}
