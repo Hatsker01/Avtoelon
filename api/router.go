@@ -118,6 +118,13 @@ func New(option Option) *gin.Engine {
 	api.GET("/additionals", handlerV1.GetAllAdditional)
 	api.DELETE("/additionally/:id", handlerV1.DeleteAdditional)
 
+	//Region
+	api.POST("/region", handlerV1.CreateRegion)
+	api.PUT("/region", handlerV1.UpdateRegion)
+	api.GET("/region/:id", handlerV1.GetRegion)
+	api.GET("/regions", handlerV1.GetAllRegions)
+	api.DELETE("/region/:id", handlerV1.DeleteRegion)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

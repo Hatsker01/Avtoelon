@@ -297,6 +297,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateRegion:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateSalon:
     properties:
       name:
@@ -447,6 +454,24 @@ definitions:
       Outsides:
         items:
           $ref: '#/definitions/structs.Outside'
+        type: array
+    type: object
+  structs.Region:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Regions:
+    properties:
+      regions:
+        items:
+          $ref: '#/definitions/structs.Region'
         type: array
     type: object
   structs.Salon:
@@ -664,6 +689,13 @@ definitions:
         type: string
     type: object
   structs.UpdateOutsideReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  structs.UpdateRegionReq:
     properties:
       id:
         type: integer
@@ -2354,6 +2386,145 @@ paths:
       summary: GetAllOutside
       tags:
       - outside
+  /v1/region:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating region
+      parameters:
+      - description: CreateRegion
+        in: body
+        name: region
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateRegion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Region'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateRegion
+      tags:
+      - region
+    put:
+      consumes:
+      - application/json
+      description: This API for updating region
+      parameters:
+      - description: UpdateRegion
+        in: body
+        name: region
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateRegionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Region'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateRegion
+      tags:
+      - region
+  /v1/region/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting region by id
+      parameters:
+      - description: Region_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Region'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeletingRegion
+      tags:
+      - region
+    get:
+      consumes:
+      - application/json
+      description: This API for getting region by Id
+      parameters:
+      - description: Region_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Region'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetRegionById
+      tags:
+      - region
+  /v1/regions:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all regions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Regions'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllRegions
+      tags:
+      - region
   /v1/salon:
     post:
       consumes:
