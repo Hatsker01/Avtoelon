@@ -97,3 +97,11 @@ type MediasRepoInterface interface {
 	GetAll() ([]*pb.Media, error)
 	Delete(id string) (*pb.Media, error)
 }
+
+type OptionsRepoInterface interface {
+	Create(option *pb.CreateOption) (*pb.Option, error)
+	Update(upOption *pb.UpdateOptionReq) (*pb.Option, error)
+	Get(id string) (*pb.Option, error)
+	GetAll() ([]*pb.Option, error)
+	Delete(id string) (*pb.Option, error)
+}
