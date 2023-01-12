@@ -230,6 +230,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateMedia:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateModelReq:
     properties:
       name:
@@ -301,6 +308,24 @@ definitions:
     properties:
       message:
         type: string
+    type: object
+  structs.Media:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Medias:
+    properties:
+      medias:
+        items:
+          $ref: '#/definitions/structs.Outside'
+        type: array
     type: object
   structs.Model:
     properties:
@@ -539,6 +564,13 @@ definitions:
     required:
     - id
     - name
+    type: object
+  structs.UpdateMediaReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
     type: object
   structs.UpdateModel:
     properties:
@@ -1288,6 +1320,145 @@ paths:
       summary: GetAllDriveUnit
       tags:
       - drive_unit
+  /v1/media:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating media for car
+      parameters:
+      - description: CreateMedia
+        in: body
+        name: media
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateMedia'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Media'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateMedia
+      tags:
+      - media
+    put:
+      consumes:
+      - application/json
+      description: This API for updating media
+      parameters:
+      - description: Update_Media
+        in: body
+        name: media
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateMediaReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Media'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateMedia
+      tags:
+      - media
+  /v1/media/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting media by id
+      parameters:
+      - description: Media_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Media'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteMedia
+      tags:
+      - media
+    get:
+      consumes:
+      - application/json
+      description: This API for getting media by id
+      parameters:
+      - description: Media_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Media'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetMedia
+      tags:
+      - media
+  /v1/medias:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all medias
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Medias'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllMedia
+      tags:
+      - media
   /v1/model:
     post:
       consumes:
