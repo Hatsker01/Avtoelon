@@ -17,7 +17,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param add body structs.CreateAdditional true "CreateAdditionally"
-// @Success 200 {object} structs.Addirional
+// @Success 200 {object} structs.Additional
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/additionally [post]
@@ -52,7 +52,7 @@ func (h *handlerV1) CreateAdd(c *gin.Context) {
 // @Param add body structs.UpdateAdditionalReq true "UpdateAdditionally"
 // @Success 200 {object} structs.Additional
 // @Failure 400 {object} structs.StandardErrorModel
-// @Failure 500 {object} structs.StandartErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/additionally [put]
 func (h *handlerV1) UpdateAdditionally(c *gin.Context) {
 	var body structs.UpdateAdditionalReq

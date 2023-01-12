@@ -16,6 +16,217 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/additionally": {
+            "put": {
+                "description": "This API for updating additionally",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "additionally"
+                ],
+                "summary": "UpdateAdditionally",
+                "parameters": [
+                    {
+                        "description": "UpdateAdditionally",
+                        "name": "add",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.UpdateAdditionalReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Additional"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "This API for creating additionally for cars",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "additionally"
+                ],
+                "summary": "CreateAdditionally",
+                "parameters": [
+                    {
+                        "description": "CreateAdditionally",
+                        "name": "add",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.CreateAdditional"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Additional"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/additionally/{id}": {
+            "get": {
+                "description": "This API for getting additional by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "additionally"
+                ],
+                "summary": "GetAdditionally",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Additionally_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Additional"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This API for deleting additional by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "additionally"
+                ],
+                "summary": "DeleteAdditional",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Additional_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Additional"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/additionals": {
+            "get": {
+                "description": "This API for getting all addittionals",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "additionally"
+                ],
+                "summary": "GetAllAdditional",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Additionals"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/bodies": {
             "get": {
                 "description": "This API for getting body by id",
@@ -2756,6 +2967,34 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "structs.Additional": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.Additionals": {
+            "type": "object",
+            "properties": {
+                "additionals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/structs.Additional"
+                    }
+                }
+            }
+        },
         "structs.Bodies": {
             "type": "object",
             "properties": {
@@ -2960,6 +3199,17 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/structs.Model"
                     }
+                }
+            }
+        },
+        "structs.CreateAdditional": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
                 }
             }
         },
@@ -3256,7 +3506,7 @@ const docTemplate = `{
                 "medias": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/structs.Outside"
+                        "$ref": "#/definitions/structs.Media"
                     }
                 }
             }
@@ -3340,7 +3590,7 @@ const docTemplate = `{
                 "Optics": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/structs.Outside"
+                        "$ref": "#/definitions/structs.Optic"
                     }
                 }
             }
@@ -3365,10 +3615,10 @@ const docTemplate = `{
         "structs.Options": {
             "type": "object",
             "properties": {
-                "Optics": {
+                "Options": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/structs.Outside"
+                        "$ref": "#/definitions/structs.Option"
                     }
                 }
             }
@@ -3424,7 +3674,7 @@ const docTemplate = `{
                 "salons": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/structs.Outside"
+                        "$ref": "#/definitions/structs.Salon"
                     }
                 }
             }
@@ -3462,6 +3712,17 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/structs.Transmission"
                     }
+                }
+            }
+        },
+        "structs.UpdateAdditionalReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         },

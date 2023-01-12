@@ -1,4 +1,22 @@
 definitions:
+  structs.Additional:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Additionals:
+    properties:
+      additionals:
+        items:
+          $ref: '#/definitions/structs.Additional'
+        type: array
+    type: object
   structs.Bodies:
     properties:
       bodies:
@@ -133,6 +151,13 @@ definitions:
         items:
           $ref: '#/definitions/structs.Model'
         type: array
+    type: object
+  structs.CreateAdditional:
+    properties:
+      name:
+        type: string
+    required:
+    - name
     type: object
   structs.CreateBody:
     properties:
@@ -331,7 +356,7 @@ definitions:
     properties:
       medias:
         items:
-          $ref: '#/definitions/structs.Outside'
+          $ref: '#/definitions/structs.Media'
         type: array
     type: object
   structs.Model:
@@ -385,7 +410,7 @@ definitions:
     properties:
       Optics:
         items:
-          $ref: '#/definitions/structs.Outside'
+          $ref: '#/definitions/structs.Optic'
         type: array
     type: object
   structs.Option:
@@ -401,9 +426,9 @@ definitions:
     type: object
   structs.Options:
     properties:
-      Optics:
+      Options:
         items:
-          $ref: '#/definitions/structs.Outside'
+          $ref: '#/definitions/structs.Option'
         type: array
     type: object
   structs.Outside:
@@ -439,7 +464,7 @@ definitions:
     properties:
       salons:
         items:
-          $ref: '#/definitions/structs.Outside'
+          $ref: '#/definitions/structs.Salon'
         type: array
     type: object
   structs.StandardErrorModel:
@@ -464,6 +489,13 @@ definitions:
         items:
           $ref: '#/definitions/structs.Transmission'
         type: array
+    type: object
+  structs.UpdateAdditionalReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
     type: object
   structs.UpdateBody:
     properties:
@@ -658,6 +690,145 @@ definitions:
 info:
   contact: {}
 paths:
+  /v1/additionally:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating additionally for cars
+      parameters:
+      - description: CreateAdditionally
+        in: body
+        name: add
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateAdditional'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Additional'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateAdditionally
+      tags:
+      - additionally
+    put:
+      consumes:
+      - application/json
+      description: This API for updating additionally
+      parameters:
+      - description: UpdateAdditionally
+        in: body
+        name: add
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateAdditionalReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Additional'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateAdditionally
+      tags:
+      - additionally
+  /v1/additionally/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting additional by id
+      parameters:
+      - description: Additional_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Additional'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteAdditional
+      tags:
+      - additionally
+    get:
+      consumes:
+      - application/json
+      description: This API for getting additional by id
+      parameters:
+      - description: Additionally_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Additional'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAdditionally
+      tags:
+      - additionally
+  /v1/additionals:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all addittionals
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Additionals'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllAdditional
+      tags:
+      - additionally
   /v1/bodies:
     get:
       consumes:
