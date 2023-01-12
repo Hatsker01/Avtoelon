@@ -258,6 +258,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateOption:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateOutside:
     properties:
       name:
@@ -375,6 +382,24 @@ definitions:
         type: string
     type: object
   structs.Optics:
+    properties:
+      Optics:
+        items:
+          $ref: '#/definitions/structs.Outside'
+        type: array
+    type: object
+  structs.Option:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Options:
     properties:
       Optics:
         items:
@@ -593,6 +618,13 @@ definitions:
     - name
     type: object
   structs.UpdateOpticReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  structs.UpdateOptionReq:
     properties:
       id:
         type: integer
@@ -1872,6 +1904,145 @@ paths:
       summary: GetAllOptics
       tags:
       - optic
+  /v1/option:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating option fot cars
+      parameters:
+      - description: CreateOption
+        in: body
+        name: option
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateOption'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Option'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateOptions
+      tags:
+      - option
+    put:
+      consumes:
+      - application/json
+      description: This API for creating option
+      parameters:
+      - description: Update_Option
+        in: body
+        name: option
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateOptionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Option'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateOption
+      tags:
+      - option
+  /v1/option/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting options by id
+      parameters:
+      - description: Option_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Option'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteOption
+      tags:
+      - option
+    get:
+      consumes:
+      - application/json
+      description: This API for getting option by Id
+      parameters:
+      - description: Option_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Option'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetOptionById
+      tags:
+      - option
+  /v1/options:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all options for cars
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Options'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllOptions
+      tags:
+      - option
   /v1/outside:
     post:
       consumes:

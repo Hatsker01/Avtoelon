@@ -104,6 +104,13 @@ func New(option Option) *gin.Engine {
 	api.GET("/medias", handlerV1.GetAllMedias)
 	api.DELETE("/media/:id", handlerV1.DeleteMedia)
 
+	//Options
+	api.POST("/option", handlerV1.CreateOption)
+	api.PUT("/option", handlerV1.UpdateOption)
+	api.GET("/option/:id", handlerV1.GetOption)
+	api.GET("/options", handlerV1.GetAllOptions)
+	api.DELETE("/option/:id", handlerV1.DeleteOption)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
