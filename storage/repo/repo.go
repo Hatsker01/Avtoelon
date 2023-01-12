@@ -121,3 +121,11 @@ type RegionsRepoInterface interface {
 	GetAll() ([]*pb.Region, error)
 	Delete(id string) (*pb.Region, error)
 }
+
+type CitiesRepoInterface interface {
+	Create(city *pb.CreateCity) (*pb.City, error)
+	Update(upCity *pb.UpdateCityReq) (*pb.City, error)
+	Get(id string) (*pb.City, error)
+	GetAll() ([]*pb.City, error)
+	Delete(id string) (*pb.City, error)
+}
