@@ -89,3 +89,11 @@ type SalonRepoInterface interface {
 	GetAll() ([]*pb.Salon, error)
 	Delete(id string) (*pb.Salon, error)
 }
+
+type MediasRepoInterface interface {
+	Create(media *pb.CreateMedia) (*pb.Media, error)
+	Update(upMedia *pb.UpdateMediaReq) (*pb.Media, error)
+	Get(id string) (*pb.Media, error)
+	GetAll() ([]*pb.Media, error)
+	Delete(id string) (*pb.Media, error)
+}
