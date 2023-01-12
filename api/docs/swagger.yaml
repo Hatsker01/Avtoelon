@@ -134,6 +134,24 @@ definitions:
     required:
     - name
     type: object
+  structs.Cities:
+    properties:
+      cities:
+        items:
+          $ref: '#/definitions/structs.City'
+        type: array
+    type: object
+  structs.City:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
   structs.Color:
     properties:
       created_at:
@@ -247,6 +265,13 @@ definitions:
     - region_id
     - salon_id
     - transmission_id
+    type: object
+  structs.CreateCity:
+    properties:
+      name:
+        type: string
+    required:
+    - name
     type: object
   structs.CreateColorReq:
     properties:
@@ -626,6 +651,13 @@ definitions:
     required:
     - id
     - name
+    type: object
+  structs.UpdateCityReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
     type: object
   structs.UpdateColor:
     properties:
@@ -1277,6 +1309,145 @@ paths:
       summary: GetAllCategory
       tags:
       - category
+  /v1/cities:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all cities
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Cities'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllCities
+      tags:
+      - city
+  /v1/city:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating city
+      parameters:
+      - description: CreateCity
+        in: body
+        name: city
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateCity'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.City'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: CreateCity
+      tags:
+      - city
+    put:
+      consumes:
+      - application/json
+      description: This API for updating city
+      parameters:
+      - description: UpdateCity
+        in: body
+        name: city
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateCityReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.City'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdateCity
+      tags:
+      - city
+  /v1/city/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting city by id
+      parameters:
+      - description: City_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.City'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: DeleteCity
+      tags:
+      - city
+    get:
+      consumes:
+      - application/json
+      description: This API for getting city by Id
+      parameters:
+      - description: City_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.City'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetCityById
+      tags:
+      - city
   /v1/color:
     post:
       consumes:
