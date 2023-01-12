@@ -105,3 +105,11 @@ type OptionsRepoInterface interface {
 	GetAll() ([]*pb.Option, error)
 	Delete(id string) (*pb.Option, error)
 }
+
+type AdditionalsRepoInterface interface {
+	Create(additional *pb.CreateAdditional) (*pb.Additional, error)
+	Update(upAdd *pb.UpdateAdditionalReq) (*pb.Additional, error)
+	Get(id string) (*pb.Additional, error)
+	GetAll() ([]*pb.Additional, error)
+	Delete(id string) (*pb.Additional, error)
+}

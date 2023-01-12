@@ -17,5 +17,5 @@ type UpdateOptionReq struct {
 }
 
 type Options struct {
-	Outsides []Outside `json:"Optics"`
+	Options []Option `json:"Options"`
 }

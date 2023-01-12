@@ -17,5 +17,5 @@ type UpdateMediaReq struct {
 }
 
 type Medias struct{
-	Outsides []Outside `json:"medias"`
+	Medias []Media `json:"medias"`
 }

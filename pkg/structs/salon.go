@@ -17,5 +17,5 @@ type UpdateSalonReq struct {
 }
 
 type Salons struct{
-	Outsides []Outside `json:"salons"`
+	Salons []Salon `json:"salons"`
 }
