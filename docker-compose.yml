@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api
+    build: ./api
+    depends_on: 
+      - "postgresdb"
+    ports:
+      - "8080:8080"
+  
+  postgresdb:
+    container_name: postgresdb
+    image: postgres:14.1
+    networks:
+            new:
+                aliases:
+                    - database
+    environment:
+      POSTGRES_DATABASE: userss
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+    expose:
+      - "5433"
+    ports: 
+      - "5433:5433"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    command: -p 5433
+    migrate:
+      image: migrate/migrate
+      networks:
+        - new
+      volumes:
+        - ./migrations:/migrations
+      command: ["-path", "/migrations", "-database",  "postgres://postgres:1@postgresdb:5433/userss?sslmode=disable", "up",]
+      links: 
+        - postgresdb
+
+networks:
+  new:
+volumes:
+  dbdata:
