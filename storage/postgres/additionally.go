@@ -20,7 +20,7 @@ func NewAdditionalsRepo(db *sqlx.DB) repo.AdditionalsRepoInterface {
 	}
 }
 
-func (r additionalsRepasitory) Create(additional pb.CreateAdditional) (pb.Additional, error) {
+func (r *additionalsRepasitory) Create(additional *pb.CreateAdditional) (*pb.Additional, error) {
 	add := pb.Additional{}
 	query := `INSERT INTO additionally(name,created_at) VALUES ($1,$2) RETURNING id,name,created_at`
 	err := r.db.QueryRow(query, additional.Name, time.Now().UTC()).Scan(
@@ -29,9 +29,9 @@ func (r additionalsRepasitory) Create(additional pb.CreateAdditional) (pb.Additi
 		&add.Created_at,
 	)
 	if err != nil {
-		return pb.Additional{}, err
+		return nil, err
 	}
-	return add, nil
+	return &add, nil
 }
 
 func (r *additionalsRepasitory) Update(upAdd *pb.UpdateAdditionalReq) (*pb.Additional, error) {
