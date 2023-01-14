@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
 
 	"github.com/Avtoelon/storage/repo"
@@ -29,11 +30,12 @@ func (r *carsRepasitory) CreateCar(car *pb.Car) (*pb.Car, error) {
 		return nil, err
 	}
 	newCar := pb.Car{}
+	fmt.Print(car)
 	query := `INSERT INTO cars(id,category_id,model_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
-		color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,additionally_id,add_info,region_id,city_id,
-		phone,created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
+		color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
+		phone,created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23,$24)
 		 RETURNING id,category_id,model_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
-		 color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,additionally_id,add_info,region_id,city_id,
+		 color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
 		 phone,created_at`
 	err = r.db.QueryRow(query, id, car.Category_Id, car.Model_Id, car.Body_Id, car.Date, car.Price, car.Auction,
 		car.Enginee, car.Oil_Id, car.Transmission_id, car.Milage, car.Color_id, car.Drive_unit_id, pq.Array(car.Outside_Id), pq.Array(car.Optic_Id),
@@ -64,6 +66,10 @@ func (r *carsRepasitory) CreateCar(car *pb.Car) (*pb.Car, error) {
 		&newCar.Phone,
 		&newCar.Created_at,
 	)
+	fmt.Println(newCar)
+	if err != nil {
+		return nil, err
+	}
 	return &newCar, nil
 
 }
@@ -118,7 +124,7 @@ func (r *carsRepasitory) UpdateCar(upCar *pb.Car) (*pb.Car, error) {
 
 func (r *carsRepasitory) GetCar(id string) (*pb.Car, error) {
 	query := `SELECT id,category_id,model_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
-	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,additionally_id,add_info,region_id,city_id,
+	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
 	phone,created_at,updated_at from cars where deleted_at is null and id = $1`
 	newCar := pb.Car{}
 	var updated_at sql.NullTime
@@ -136,12 +142,12 @@ func (r *carsRepasitory) GetCar(id string) (*pb.Car, error) {
 		&newCar.Milage,
 		&newCar.Color_id,
 		&newCar.Drive_unit_id,
-		pq.Array(&newCar.Outside_Id),
-		pq.Array(&newCar.Optic_Id),
-		pq.Array(&newCar.Salon_Id),
-		pq.Array(&newCar.Media_Id),
-		pq.Array(&newCar.Options_Id),
-		pq.Array(&newCar.Additionally_Id),
+		&newCar.Outside_Id,
+		&newCar.Optic_Id,
+		&newCar.Salon_Id,
+		&newCar.Media_Id,
+		&newCar.Options_Id,
+		&newCar.Additionally_Id,
 		&newCar.Add_Info,
 		&newCar.Region_Id,
 		&newCar.City_Id,

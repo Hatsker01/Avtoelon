@@ -86,7 +86,7 @@ func (h *handlerV1) UpdateCategory(c *gin.Context) {
 // @Success 200 {object} structs.Category
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
-// @Router /v1/category/:id [get]
+// @Router /v1/category/{id} [get]
 func (h *handlerV1) GetCategory(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
@@ -113,7 +113,7 @@ func (h *handlerV1) GetCategory(c *gin.Context) {
 // @Success 200 {object} structs.Categories
 // @Failuer 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
-// @Router /v1/category/getAll [get]
+// @Router /v1/categories [get]
 func (h *handlerV1) GetAllCategory(c *gin.Context){
 	response,err:=postgres.NewCategoryRepasitory(h.db).GetAllCategory()
 	if err!=nil{
@@ -136,7 +136,7 @@ func (h *handlerV1) GetAllCategory(c *gin.Context){
 // @Success 200 {object} structs.Category
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
-// @Router /v1/category/:id [delete]
+// @Router /v1/category/{id} [delete]
 func (h *handlerV1) DeleteCategory(c *gin.Context){
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true

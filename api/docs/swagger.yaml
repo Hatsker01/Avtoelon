@@ -1174,6 +1174,25 @@ paths:
       summary: UpdateCar
       tags:
       - car
+  /v1/categories:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all categories
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Categories'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetAllCategory
+      tags:
+      - category
   /v1/category:
     post:
       consumes:
@@ -1233,7 +1252,7 @@ paths:
       summary: UpdateCategory
       tags:
       - category
-  /v1/category/:id:
+  /v1/category/{id}:
     delete:
       consumes:
       - application/json
@@ -1288,25 +1307,6 @@ paths:
           schema:
             $ref: '#/definitions/structs.StandardErrorModel'
       summary: GetCategory
-      tags:
-      - category
-  /v1/category/getAll:
-    get:
-      consumes:
-      - application/json
-      description: This API for getting all categories
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/structs.Categories'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/structs.StandardErrorModel'
-      summary: GetAllCategory
       tags:
       - category
   /v1/cities:

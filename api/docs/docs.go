@@ -655,6 +655,35 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/categories": {
+            "get": {
+                "description": "This API for getting all categories",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "GetAllCategory",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Categories"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/category": {
             "put": {
                 "description": "This API for updating category",
@@ -745,7 +774,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/category/:id": {
+        "/v1/category/{id}": {
             "get": {
                 "description": "This API for getting category by id",
                 "consumes": [
@@ -820,35 +849,6 @@ const docTemplate = `{
                         "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/structs.StandardErrorModel"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/structs.StandardErrorModel"
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/category/getAll": {
-            "get": {
-                "description": "This API for getting all categories",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "category"
-                ],
-                "summary": "GetAllCategory",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/structs.Categories"
                         }
                     },
                     "500": {

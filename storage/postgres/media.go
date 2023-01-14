@@ -26,7 +26,7 @@ func (r *mediasRepasitory) Create(media *pb.CreateMedia) (*pb.Media, error) {
 	err := r.db.QueryRow(query, media.Name, time.Now().UTC()).Scan(
 		&newMedia.Id,
 		&newMedia.Name,
-		newMedia.Created_at,
+		&newMedia.Created_at,
 	)
 	if err != nil {
 		return nil, err
