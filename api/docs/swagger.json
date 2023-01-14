@@ -597,6 +597,50 @@
                 }
             }
         },
+        "/v1/cars/getInfo/{id}": {
+            "get": {
+                "description": "This API for getting car by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "GetCarById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Car_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.GetCar"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/cars/updateCar": {
             "put": {
                 "description": "This API for updating car",
@@ -3939,6 +3983,104 @@
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.GetCar": {
+            "type": "object",
+            "properties": {
+                "add_info": {
+                    "type": "string"
+                },
+                "additional": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "auction": {
+                    "type": "boolean"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "drive_unit": {
+                    "type": "string"
+                },
+                "enginee": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "media": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "milage": {
+                    "type": "integer"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "oil": {
+                    "type": "string"
+                },
+                "optic": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "option": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "outside": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "salon": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "transmission": {
+                    "type": "string"
+                },
+                "updated_at": {
                     "type": "string"
                 }
             }

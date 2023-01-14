@@ -373,6 +373,71 @@ definitions:
       message:
         type: string
     type: object
+  structs.GetCar:
+    properties:
+      add_info:
+        type: string
+      additional:
+        items:
+          type: string
+        type: array
+      auction:
+        type: boolean
+      body:
+        type: string
+      category:
+        type: string
+      city:
+        type: string
+      color:
+        type: string
+      created_at:
+        type: string
+      date:
+        type: string
+      drive_unit:
+        type: string
+      enginee:
+        type: string
+      id:
+        type: string
+      media:
+        items:
+          type: string
+        type: array
+      milage:
+        type: integer
+      model:
+        type: string
+      oil:
+        type: string
+      optic:
+        items:
+          type: string
+        type: array
+      option:
+        items:
+          type: string
+        type: array
+      outside:
+        items:
+          type: string
+        type: array
+      phone:
+        type: string
+      price:
+        type: integer
+      region:
+        type: string
+      salon:
+        items:
+          type: string
+        type: array
+      transmission:
+        type: string
+      updated_at:
+        type: string
+    type: object
   structs.Media:
     properties:
       created_at:
@@ -1133,6 +1198,35 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: GetCarById
+      tags:
+      - car
+  /v1/cars/getInfo/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting car by ID
+      parameters:
+      - description: Car_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.GetCar'
         "400":
           description: Bad Request
           schema:

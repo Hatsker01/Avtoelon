@@ -52,7 +52,7 @@ func (r *colorRepasitory) Update(upColor *pb.UpdateColor) (*pb.Color, error) {
 func (r *colorRepasitory) Get(id string) (*pb.Color, error) {
 	var updated_at sql.NullTime
 	color := pb.Color{}
-	query := `SELECT id,name,created_at,updated_at where id=$1 and deleted_at is null`
+	query := `SELECT id,name,created_at,updated_at from color where id=$1 and deleted_at is null`
 	err := r.db.QueryRow(query, id).Scan(
 		&color.Id,
 		&color.Name,
@@ -65,6 +65,7 @@ func (r *colorRepasitory) Get(id string) (*pb.Color, error) {
 	if updated_at.Valid {
 		color.Updated_at = updated_at.Time.String()
 	}
+
 	return &color, nil
 }
 

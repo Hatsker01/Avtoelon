@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
 
 	pb "github.com/Avtoelon/pkg/structs"
@@ -54,11 +55,16 @@ func (r *outsideRepasitory) UpdateOutside(upOut *pb.Outside) (*pb.Outside, error
 
 func (r *outsideRepasitory) GetOutside(id string) (*pb.Outside, error) {
 	outside := pb.Outside{}
-	query := `SELECT id,name,created_at,updated_at where id=$1 and deleted_at is null`
-	err := r.db.QueryRow(query, id).Scan(outside.Id, outside.Name)
+	var updated_at sql.NullTime
+	query := `SELECT id,name,created_at,updated_at from outside where id=$1 and deleted_at is null`
+	err := r.db.QueryRow(query, id).Scan(&outside.Id, &outside.Name, &outside.Created_at, &updated_at)
 	if err != nil {
 		return nil, err
 	}
+	if updated_at.Valid {
+		outside.Updated_at = updated_at.Time.String()
+	}
+	fmt.Println(outside)
 	return &outside, nil
 }
 
