@@ -7,6 +7,7 @@ import (
 	"github.com/Avtoelon/config"
 	"github.com/Avtoelon/pkg/logger"
 	gormadapter "github.com/casbin/gorm-adapter/v2"
+	"github.com/jmoiron/sqlx"
 )
 
 func main() {
@@ -20,13 +21,19 @@ func main() {
 		cfg.PostgresPassword,
 		cfg.PostgresDatabase,
 	)
+	connDB, err := sqlx.Connect("postgres", psqlString)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-	_, err := gormadapter.NewAdapter("postgres", psqlString, true)
+	_, err = gormadapter.NewAdapter("postgres", psqlString, true)
 	if err != nil {
 		log.Error("new adapter error", logger.Error(err))
 
 	}
 	server := api.New(api.Option{
+		Db:     connDB,
 		Conf:   cfg,
 		Logger: log,
 	})

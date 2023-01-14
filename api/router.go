@@ -7,11 +7,13 @@ import (
 	"github.com/Avtoelon/middleware"
 	"github.com/Avtoelon/pkg/logger"
 	"github.com/gin-gonic/gin"
+	"github.com/jmoiron/sqlx"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Option struct {
+	Db     *sqlx.DB
 	Conf   config.Config
 	Logger logger.Logger
 }
@@ -23,6 +25,7 @@ func New(option Option) *gin.Engine {
 		middleware.New(GinCorsMiddleware()),
 	)
 	handlerV1 := v1.New(&v1.HandlerV1Config{
+		Db:     option.Db,
 		Logger: option.Logger,
 		Cfg:    option.Conf,
 	})
@@ -132,7 +135,6 @@ func New(option Option) *gin.Engine {
 	api.GET("/cities", handlerV1.GetAllCities)
 	api.DELETE("/city/:id", handlerV1.DeleteCity)
 
-	
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

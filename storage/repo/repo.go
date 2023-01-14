@@ -107,7 +107,7 @@ type OptionsRepoInterface interface {
 }
 
 type AdditionalsRepoInterface interface {
-	Create(additional *pb.CreateAdditional) (*pb.Additional, error)
+	Create(additional pb.CreateAdditional) (pb.Additional, error)
 	Update(upAdd *pb.UpdateAdditionalReq) (*pb.Additional, error)
 	Get(id string) (*pb.Additional, error)
 	GetAll() ([]*pb.Additional, error)

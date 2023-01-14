@@ -26,13 +26,13 @@ func (h *handlerV1) CreateAdd(c *gin.Context) {
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
+			"error": err.Error(), 	 
 		})
 		h.log.Error("failed while binding json", logger.Error(err))
 		return
 	}
 
-	response, err := postgres.NewAdditionalsRepo(h.db).Create(&body)
+	response, err := postgres.NewAdditionalsRepo(h.db).Create(body)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
