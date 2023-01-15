@@ -1537,6 +1537,216 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/marc": {
+            "put": {
+                "description": "This Api for updating marc",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "marc"
+                ],
+                "summary": "Update Marc",
+                "parameters": [
+                    {
+                        "description": "UpdateMarc",
+                        "name": "marc",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.UpdateMarcReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Marc"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "marc"
+                ],
+                "summary": "Create Marc for cars",
+                "parameters": [
+                    {
+                        "description": "CreateMarc",
+                        "name": "marc",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/structs.CreateMarc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Marc"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/marc/{id}": {
+            "get": {
+                "description": "This API for getting marc by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "marc"
+                ],
+                "summary": "Get Marc By Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Marc_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Marc"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This API for deleting marc by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "marc"
+                ],
+                "summary": "Delete Marc By ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Marc_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Marc"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/marcs": {
+            "get": {
+                "description": "This API for getting all marcs",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "marc"
+                ],
+                "summary": "Get All Marc",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Marcs"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/media": {
             "put": {
                 "description": "This API for updating media",
@@ -3498,7 +3708,7 @@ const docTemplate = `{
                 "additional_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "auction": {
@@ -3534,10 +3744,13 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
+                "mark_id": {
+                    "type": "integer"
+                },
                 "media_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "milage": {
@@ -3552,19 +3765,19 @@ const docTemplate = `{
                 "optic_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "options_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "outside_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "phone": {
@@ -3579,7 +3792,7 @@ const docTemplate = `{
                 "salon_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "transmission_id": {
@@ -3731,6 +3944,7 @@ const docTemplate = `{
                 "date",
                 "drive_unit_id",
                 "enginee",
+                "marc_id",
                 "media_id",
                 "milage",
                 "model_id",
@@ -3777,6 +3991,9 @@ const docTemplate = `{
                 },
                 "enginee": {
                     "type": "string"
+                },
+                "marc_id": {
+                    "type": "integer"
                 },
                 "media_id": {
                     "type": "array",
@@ -3853,6 +4070,17 @@ const docTemplate = `{
                 }
             }
         },
+        "structs.CreateMarc": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "structs.CreateMedia": {
             "type": "object",
             "required": [
@@ -3867,9 +4095,13 @@ const docTemplate = `{
         "structs.CreateModelReq": {
             "type": "object",
             "required": [
+                "marc_id",
                 "name"
             ],
             "properties": {
+                "marc_id": {
+                    "type": "integer"
+                },
                 "name": {
                     "type": "string"
                 }
@@ -4041,6 +4273,9 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
+                "marc": {
+                    "type": "string"
+                },
                 "media": {
                     "type": "array",
                     "items": {
@@ -4097,6 +4332,34 @@ const docTemplate = `{
                 }
             }
         },
+        "structs.Marc": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.Marcs": {
+            "type": "object",
+            "properties": {
+                "marcs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/structs.Marc"
+                    }
+                }
+            }
+        },
         "structs.Media": {
             "type": "object",
             "properties": {
@@ -4132,6 +4395,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
+                    "type": "integer"
+                },
+                "marc_id": {
                     "type": "integer"
                 },
                 "name": {
@@ -4397,6 +4663,7 @@ const docTemplate = `{
                 "drive_unit_id",
                 "enginee",
                 "id",
+                "marc_id",
                 "media_id",
                 "milage",
                 "model_id",
@@ -4446,6 +4713,9 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "string"
+                },
+                "marc_id": {
+                    "type": "integer"
                 },
                 "media_id": {
                     "type": "array",
@@ -4556,6 +4826,17 @@ const docTemplate = `{
                 }
             }
         },
+        "structs.UpdateMarcReq": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "structs.UpdateMediaReq": {
             "type": "object",
             "properties": {
@@ -4571,10 +4852,14 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "id",
+                "marc_id",
                 "name"
             ],
             "properties": {
                 "id": {
+                    "type": "integer"
+                },
+                "marc_id": {
                     "type": "integer"
                 },
                 "name": {

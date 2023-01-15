@@ -36,7 +36,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/cars/getById/:id", handlerV1.GetCar)
 	api.GET("/cars/getAll", handlerV1.GetAllCars)
 	api.DELETE("/cars/:id", handlerV1.DeleteCar)
-	api.GET("/cars/getInfo/:id",handlerV1.GetCarInfo)
+	api.GET("/cars/getInfo/:id", handlerV1.GetCarInfo)
 
 	//Outside
 	api.POST("/outside", handlerV1.CreateOutside)
@@ -53,13 +53,12 @@ func New(option Option) *gin.Engine {
 	api.DELETE("/model/:id", handlerV1.DeleteModel)
 
 	//Category
-	api.POST("/category",handlerV1.CreateCategory)
-	api.PUT("/category",handlerV1.UpdateCategory)
-	api.GET("/category/:id",handlerV1.GetCategory)
-	api.GET("/categories",handlerV1.GetAllCategory)
-	api.DELETE("/category/:id",handlerV1.DeleteCategory)
+	api.POST("/category", handlerV1.CreateCategory)
+	api.PUT("/category", handlerV1.UpdateCategory)
+	api.GET("/category/:id", handlerV1.GetCategory)
+	api.GET("/categories", handlerV1.GetAllCategory)
+	api.DELETE("/category/:id", handlerV1.DeleteCategory)
 
-	
 	//Body
 	api.POST("/body", handlerV1.CreateBody)
 	api.PUT("/body", handlerV1.UpdateBody)
@@ -143,6 +142,13 @@ func New(option Option) *gin.Engine {
 	api.GET("/city/:id", handlerV1.GetCity)
 	api.GET("/cities", handlerV1.GetAllCities)
 	api.DELETE("/city/:id", handlerV1.DeleteCity)
+
+	//Marc
+	api.POST("/marc", handlerV1.CreateMarc)
+	api.PUT("/marc", handlerV1.UpdateMarc)
+	api.GET("/marc/:id", handlerV1.GetMarc)
+	api.GET("/marcs", handlerV1.GetAllMarc)
+	api.DELETE("/marc/:id", handlerV1.DeleteMarc)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

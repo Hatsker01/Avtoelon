@@ -41,7 +41,7 @@ definitions:
         type: string
       additional_id:
         items:
-          type: integer
+          type: string
         type: array
       auction:
         type: boolean
@@ -65,9 +65,11 @@ definitions:
         type: string
       id:
         type: string
+      mark_id:
+        type: integer
       media_id:
         items:
-          type: integer
+          type: string
         type: array
       milage:
         type: integer
@@ -77,15 +79,15 @@ definitions:
         type: integer
       optic_id:
         items:
-          type: integer
+          type: string
         type: array
       options_id:
         items:
-          type: integer
+          type: string
         type: array
       outside_id:
         items:
-          type: integer
+          type: string
         type: array
       phone:
         type: string
@@ -95,7 +97,7 @@ definitions:
         type: integer
       salon_id:
         items:
-          type: integer
+          type: string
         type: array
       transmission_id:
         type: integer
@@ -208,6 +210,8 @@ definitions:
         type: integer
       enginee:
         type: string
+      marc_id:
+        type: integer
       media_id:
         items:
           type: integer
@@ -253,6 +257,7 @@ definitions:
     - date
     - drive_unit_id
     - enginee
+    - marc_id
     - media_id
     - milage
     - model_id
@@ -280,6 +285,13 @@ definitions:
     required:
     - name
     type: object
+  structs.CreateMarc:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   structs.CreateMedia:
     properties:
       name:
@@ -289,9 +301,12 @@ definitions:
     type: object
   structs.CreateModelReq:
     properties:
+      marc_id:
+        type: integer
       name:
         type: string
     required:
+    - marc_id
     - name
     type: object
   structs.CreateOil:
@@ -401,6 +416,8 @@ definitions:
         type: string
       id:
         type: string
+      marc:
+        type: string
       media:
         items:
           type: string
@@ -438,6 +455,24 @@ definitions:
       updated_at:
         type: string
     type: object
+  structs.Marc:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Marcs:
+    properties:
+      marcs:
+        items:
+          $ref: '#/definitions/structs.Marc'
+        type: array
+    type: object
   structs.Media:
     properties:
       created_at:
@@ -461,6 +496,8 @@ definitions:
       created_at:
         type: string
       id:
+        type: integer
+      marc_id:
         type: integer
       name:
         type: string
@@ -648,6 +685,8 @@ definitions:
         type: string
       id:
         type: string
+      marc_id:
+        type: integer
       media_id:
         items:
           type: integer
@@ -694,6 +733,7 @@ definitions:
     - drive_unit_id
     - enginee
     - id
+    - marc_id
     - media_id
     - milage
     - model_id
@@ -744,6 +784,13 @@ definitions:
     - id
     - name
     type: object
+  structs.UpdateMarcReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
   structs.UpdateMediaReq:
     properties:
       id:
@@ -755,10 +802,13 @@ definitions:
     properties:
       id:
         type: integer
+      marc_id:
+        type: integer
       name:
         type: string
     required:
     - id
+    - marc_id
     - name
     type: object
   structs.UpdateOil:
@@ -1820,6 +1870,144 @@ paths:
       summary: GetAllDriveUnit
       tags:
       - drive_unit
+  /v1/marc:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: CreateMarc
+        in: body
+        name: marc
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreateMarc'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Marc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Create Marc for cars
+      tags:
+      - marc
+    put:
+      consumes:
+      - application/json
+      description: This Api for updating marc
+      parameters:
+      - description: UpdateMarc
+        in: body
+        name: marc
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdateMarcReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Marc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Update Marc
+      tags:
+      - marc
+  /v1/marc/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting marc by ID
+      parameters:
+      - description: Marc_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Marc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Delete Marc By ID
+      tags:
+      - marc
+    get:
+      consumes:
+      - application/json
+      description: This API for getting marc by ID
+      parameters:
+      - description: Marc_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Marc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Marc By Id
+      tags:
+      - marc
+  /v1/marcs:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all marcs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Marcs'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get All Marc
+      tags:
+      - marc
   /v1/media:
     post:
       consumes:
