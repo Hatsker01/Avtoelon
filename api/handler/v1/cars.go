@@ -409,6 +409,16 @@ func (h *handlerV1) GetCarInfo(c *gin.Context) {
 	}
 	car.City = city.Name
 
+	marc,err:=postgres.NewMarcsRepo(h.db).Get(strconv.Itoa(response.Marc_Id))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting marc by id", logger.Error(err))
+		return
+	}
+	car.Marc=marc.Name
+
 	car.Id = response.Id
 	car.Date = response.Date
 	car.Price = response.Price
