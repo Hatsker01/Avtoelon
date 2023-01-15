@@ -3744,7 +3744,7 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "mark_id": {
+                "marc_id": {
                     "type": "integer"
                 },
                 "media_id": {
@@ -3965,7 +3965,7 @@ const docTemplate = `{
                 "additional_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "auction": {
@@ -3998,7 +3998,7 @@ const docTemplate = `{
                 "media_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "milage": {
@@ -4013,19 +4013,19 @@ const docTemplate = `{
                 "optic_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "options_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "outside_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "phone": {
@@ -4040,7 +4040,7 @@ const docTemplate = `{
                 "salon_id": {
                     "type": "array",
                     "items": {
-                        "type": "integer"
+                        "type": "string"
                     }
                 },
                 "transmission_id": {

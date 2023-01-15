@@ -3,7 +3,7 @@ package structs
 type Car struct {
 	Id              string   `json:"id"`
 	Category_Id     int      `json:"category_id"`
-	Marc_Id         int      `json:"mark_id"`
+	Marc_Id         int      `json:"marc_id"`
 	Model_Id        int      `json:"model_id"`
 	Body_Id         int      `json:"body_id"`
 	Date            string   `json:"date"`
@@ -72,12 +72,12 @@ type CreateCarReq struct {
 	Milage          int    `json:"milage" binding:"required"`
 	Color_id        int    `json:"color_id" binding:"required"`
 	Drive_unit_id   int    `json:"drive_unit_id" binding:"required"`
-	Outside_Id      []int  `json:"outside_id" binding:"required"`
-	Optic_Id        []int  `json:"optic_id" binding:"required"`
-	Salon_Id        []int  `json:"salon_id" binding:"required"`
-	Media_Id        []int  `json:"media_id" binding:"required"`
-	Options_Id      []int  `json:"options_id" binding:"required"`
-	Additionally_Id []int  `json:"additional_id" binding:"required"`
+	Outside_Id      []string  `json:"outside_id" binding:"required"`
+	Optic_Id        []string  `json:"optic_id" binding:"required"`
+	Salon_Id        []string  `json:"salon_id" binding:"required"`
+	Media_Id        []string  `json:"media_id" binding:"required"`
+	Options_Id      []string  `json:"options_id" binding:"required"`
+	Additionally_Id []string  `json:"additional_id" binding:"required"`
 	Add_Info        string `json:"add_info" binding:"required"`
 	Region_Id       int    `json:"region_id" binding:"required"`
 	City_Id         int    `json:"city_id" binding:"required"`

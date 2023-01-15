@@ -65,7 +65,7 @@ definitions:
         type: string
       id:
         type: string
-      mark_id:
+      marc_id:
         type: integer
       media_id:
         items:
@@ -192,7 +192,7 @@ definitions:
         type: string
       additional_id:
         items:
-          type: integer
+          type: string
         type: array
       auction:
         type: boolean
@@ -214,7 +214,7 @@ definitions:
         type: integer
       media_id:
         items:
-          type: integer
+          type: string
         type: array
       milage:
         type: integer
@@ -224,15 +224,15 @@ definitions:
         type: integer
       optic_id:
         items:
-          type: integer
+          type: string
         type: array
       options_id:
         items:
-          type: integer
+          type: string
         type: array
       outside_id:
         items:
-          type: integer
+          type: string
         type: array
       phone:
         type: string
@@ -242,7 +242,7 @@ definitions:
         type: integer
       salon_id:
         items:
-          type: integer
+          type: string
         type: array
       transmission_id:
         type: integer

@@ -50,6 +50,7 @@ func (r *marcsRepasitory) Update(upMarc *pb.UpdateMarcReq) (*pb.Marc, error) {
 
 func (r *marcsRepasitory) Get(id string) (*pb.Marc, error) {
 	marc := pb.Marc{}
+
 	var updated_at sql.NullTime
 	query := `SELECT id,name,created_at,updated_at from marc where id=$1 and deleted_at is null`
 	err := r.db.QueryRow(query, id).Scan(
@@ -58,6 +59,7 @@ func (r *marcsRepasitory) Get(id string) (*pb.Marc, error) {
 		&marc.Created_at,
 		&updated_at,
 	)
+
 	if err != nil {
 		return nil, err
 	}
