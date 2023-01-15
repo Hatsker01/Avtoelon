@@ -21,10 +21,11 @@ func NewModelRepasitory(db *sqlx.DB) repo.ModelRepoInterface {
 
 func (r *modelRepasitory) CreateModel(model *pb.CreateModelReq)(*pb.Model,error){
 	newModel := pb.Model{}
-	query:=`INSERT INTO models(name,created_at) VALUES($1,$2) RETURNING id,name,created_at`
-	err:=r.db.QueryRow(query,model.Name,time.Now().UTC()).Scan(
+	query:=`INSERT INTO models(name,marc_id,created_at) VALUES($1,$2,$3) RETURNING id,name,marc_id,created_at`
+	err:=r.db.QueryRow(query,model.Name,model.Marc_Id,time.Now().UTC()).Scan(
 		&newModel.Id,
 		&newModel.Name,
+		&newModel.Marc_Id,
 		&newModel.Created_at,
 	)
 	if err!=nil{
@@ -35,10 +36,11 @@ func (r *modelRepasitory) CreateModel(model *pb.CreateModelReq)(*pb.Model,error)
 
 func (r *modelRepasitory) UpdateModel(upModel *pb.UpdateModel)(*pb.Model,error){
 	model:=pb.Model{}
-	query:=`UPDATE models SET name=$2,updated_at=$3 where id=$1 and deleted_at is null returning id,name,created_at,updated_at`
-	err:=r.db.QueryRow(query,upModel.Id,upModel.Name,time.Now().UTC()).Scan(
+	query:=`UPDATE models SET name=$2,marc_id=$3,updated_at=$4 where id=$1 and deleted_at is null returning id,name,marc_id,created_at,updated_at`
+	err:=r.db.QueryRow(query,upModel.Id,upModel.Name,upModel.Marc_Id,time.Now().UTC()).Scan(
 		&model.Id,
 		&model.Name,
+		&model.Marc_Id,
 		&model.Created_at,
 		&model.Updated_at,
 	)
@@ -51,10 +53,11 @@ func (r *modelRepasitory) UpdateModel(upModel *pb.UpdateModel)(*pb.Model,error){
 func (r *modelRepasitory) GetModel(id string)(*pb.Model,error){
 	model:=pb.Model{}
 	var updated_at sql.NullTime 
-	query:=`SELECT id,name,created_at,updated_at from models where deleted_at is null and id=$1`
+	query:=`SELECT id,name,marc_id,created_at,updated_at from models where deleted_at is null and id=$1`
 	err:=r.db.QueryRow(query,id).Scan(
 		&model.Id,
 		&model.Name,
+		&model.Marc_Id,
 		&model.Created_at,
 		&updated_at,
 	)
@@ -69,7 +72,7 @@ func (r *modelRepasitory) GetModel(id string)(*pb.Model,error){
 
 func (r *modelRepasitory) GetAllModels()([]*pb.Model,error){
 	var models []*pb.Model
-	query:=`SELECT id,name,created_at,updated_at where deleted_at is null`
+	query:=`SELECT id,name,marc_id,created_at,updated_at where deleted_at is null`
 	rows,err:=r.db.Query(query)
 	if err!=nil{
 		return nil,err
@@ -80,6 +83,7 @@ func (r *modelRepasitory) GetAllModels()([]*pb.Model,error){
 		err:=rows.Scan(
 			&model.Id,
 			&model.Name,
+			&model.Marc_Id,
 			&model.Created_at,
 			&updated_at,
 		)

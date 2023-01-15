@@ -129,3 +129,11 @@ type CitiesRepoInterface interface {
 	GetAll() ([]*pb.City, error)
 	Delete(id string) (*pb.City, error)
 }
+
+type MarcsRepoInterface interface {
+	Create(marc *pb.CreateMarc) (*pb.Marc, error)
+	Update(upMarc *pb.UpdateMarcReq) (*pb.Marc, error)
+	Get(id string) (*pb.Marc, error)
+	GetAll() ([]*pb.Marc, error)
+	Delete(id string) (*pb.Marc, error)
+}

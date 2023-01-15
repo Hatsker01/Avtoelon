@@ -1,7 +1,6 @@
-CREATE TABLE models
+CREATE TABLE marc
 ( 
     id BIGSERIAL,
-    marc_id BIGINT,
     name text ,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,

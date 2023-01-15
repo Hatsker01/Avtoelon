@@ -1,63 +1,66 @@
 package structs
 
 type Car struct {
-	Id              string  `json:"id"`
-	Category_Id     int     `json:"category_id"`
-	Model_Id        int     `json:"model_id"`
-	Body_Id         int     `json:"body_id"`
-	Date            string  `json:"date"`
-	Price           int     `json:"price"`
-	Auction         bool    `json:"auction"`
-	Enginee         string  `json:"enginee"`
-	Oil_Id          int     `json:"oil_id"`
-	Transmission_id int     `json:"transmission_id"`
-	Milage          int     `json:"milage"`
-	Color_id        int     `json:"color_id"`
-	Drive_unit_id   int     `json:"drive_unit_id"`
+	Id              string   `json:"id"`
+	Category_Id     int      `json:"category_id"`
+	Marc_Id         int      `json:"mark_id"`
+	Model_Id        int      `json:"model_id"`
+	Body_Id         int      `json:"body_id"`
+	Date            string   `json:"date"`
+	Price           int      `json:"price"`
+	Auction         bool     `json:"auction"`
+	Enginee         string   `json:"enginee"`
+	Oil_Id          int      `json:"oil_id"`
+	Transmission_id int      `json:"transmission_id"`
+	Milage          int      `json:"milage"`
+	Color_id        int      `json:"color_id"`
+	Drive_unit_id   int      `json:"drive_unit_id"`
 	Outside_Id      []string `json:"outside_id"`
 	Optic_Id        []string `json:"optic_id"`
 	Salon_Id        []string `json:"salon_id"`
 	Media_Id        []string `json:"media_id"`
 	Options_Id      []string `json:"options_id"`
 	Additionally_Id []string `json:"additional_id"`
-	Add_Info        string  `json:"add_info"`
-	Region_Id       int     `json:"region_id"`
-	City_Id         int     `json:"city_id"`
-	Phone           string  `json:"phone"`
-	Created_at      string  `json:"created_at"`
-	Updated_at      string  `json:"updated_at"`
-	Deleted_at      string  `json:"deleted_at"`
+	Add_Info        string   `json:"add_info"`
+	Region_Id       int      `json:"region_id"`
+	City_Id         int      `json:"city_id"`
+	Phone           string   `json:"phone"`
+	Created_at      string   `json:"created_at"`
+	Updated_at      string   `json:"updated_at"`
+	Deleted_at      string   `json:"deleted_at"`
 }
-type GetCar struct{
-	Id              string  `json:"id"`
-	Category string `json:"category"`
-	Model string `json:"model"`
-	Body string `json:"body"`
-	Date            string  `json:"date"`
-	Price           int     `json:"price"`
-	Auction         bool    `json:"auction"`
-	Enginee         string  `json:"enginee"`
-	Oil string 	`json:"oil"`
-	Transmission string `json:"transmission"`
-	Milage          int     `json:"milage"`
-	Color string `json:"color"`
-	Drive_Unit string `json:"drive_unit"`
-	Outside []string `json:"outside"`
-	Optic []string `json:"optic"`
-	Salon []string `json:"salon"`
-	Media []string `json:"media"`
-	Option []string `json:"option"`
-	Additional []string `json:"additional"`
-	Add_Info        string  `json:"add_info"`
-	Region string `json:"region"`
-	City string `json:"city"`
-	Phone           string  `json:"phone"`
-	Created_at      string  `json:"created_at"`
-	Updated_at      string  `json:"updated_at"`
+type GetCar struct {
+	Id           string   `json:"id"`
+	Category     string   `json:"category"`
+	Marc         string   `json:"marc"`
+	Model        string   `json:"model"`
+	Body         string   `json:"body"`
+	Date         string   `json:"date"`
+	Price        int      `json:"price"`
+	Auction      bool     `json:"auction"`
+	Enginee      string   `json:"enginee"`
+	Oil          string   `json:"oil"`
+	Transmission string   `json:"transmission"`
+	Milage       int      `json:"milage"`
+	Color        string   `json:"color"`
+	Drive_Unit   string   `json:"drive_unit"`
+	Outside      []string `json:"outside"`
+	Optic        []string `json:"optic"`
+	Salon        []string `json:"salon"`
+	Media        []string `json:"media"`
+	Option       []string `json:"option"`
+	Additional   []string `json:"additional"`
+	Add_Info     string   `json:"add_info"`
+	Region       string   `json:"region"`
+	City         string   `json:"city"`
+	Phone        string   `json:"phone"`
+	Created_at   string   `json:"created_at"`
+	Updated_at   string   `json:"updated_at"`
 }
 
 type CreateCarReq struct {
 	Category_Id     int    `json:"category_id" binding:"required"`
+	Marc_Id         int    `json:"marc_id" binding:"required"`
 	Model_Id        int    `json:"model_id" binding:"required"`
 	Body_Id         int    `json:"body_id" binding:"required"`
 	Date            string `json:"date" binding:"required"`
@@ -84,6 +87,7 @@ type CreateCarReq struct {
 type UpdateCar struct {
 	Id              string `json:"id" binding:"required"`
 	Category_Id     int    `json:"category_id" binding:"required"`
+	Marc_Id         int    `json:"marc_id" binding:"required"`
 	Model_Id        int    `json:"model_id" binding:"required"`
 	Body_Id         int    `json:"body_id" binding:"required"`
 	Date            string `json:"date" binding:"required"`
