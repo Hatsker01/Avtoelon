@@ -151,6 +151,12 @@ func New(option Option) *gin.Engine {
 	api.DELETE("/marc/:id", handlerV1.DeleteMarc)
 	api.GET("/marcModel/:id", handlerV1.GetMarcModel)
 
+	//User
+	api.POST("/user", handlerV1.CreateUser)
+	api.GET("/user/:id", handlerV1.GetUser)
+	api.GET("/users", handlerV1.GetAllUser)
+	api.DELETE("/user/:id", handlerV1.DeleteUser)
+
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
