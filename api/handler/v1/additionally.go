@@ -40,7 +40,7 @@ func (h *handlerV1) CreateAdd(c *gin.Context) {
 		h.log.Error("failed while create additionally", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted, response)
+	c.JSON(http.StatusCreated, response)
 }
 
 // UpdateAdditionally ...

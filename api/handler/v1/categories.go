@@ -39,7 +39,7 @@ func (h *handlerV1) CreateCategory(c *gin.Context) {
 		h.log.Error("failed while creating category", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted, response)
+	c.JSON(http.StatusCreated, response)
 }
 
 // UpdateCategory ...

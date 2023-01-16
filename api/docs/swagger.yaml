@@ -455,6 +455,15 @@ definitions:
       updated_at:
         type: string
     type: object
+  structs.GetMarcModels:
+    properties:
+      id:
+        type: integer
+      marc_name:
+        type: string
+      model_name:
+        type: string
+    type: object
   structs.Marc:
     properties:
       created_at:
@@ -1178,7 +1187,7 @@ paths:
       summary: CreateCar
       tags:
       - car
-  /v1/cars/:id:
+  /v1/cars/{id}:
     delete:
       consumes:
       - application/json
@@ -1983,6 +1992,35 @@ paths:
           schema:
             $ref: '#/definitions/structs.StandardErrorModel'
       summary: Get Marc By Id
+      tags:
+      - marc
+  /v1/marcModel/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting marc models
+      parameters:
+      - description: Marc_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.GetMarcModels'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Marc Model
       tags:
       - marc
   /v1/marcs:

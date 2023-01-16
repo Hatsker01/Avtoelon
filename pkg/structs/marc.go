@@ -19,3 +19,9 @@ type UpdateMarcReq struct {
 type Marcs struct {
 	Marcs []Marc `json:"marcs"`
 }
+
+type GetMarcModels struct {
+	Id         int    `json:"id"`
+	Marc_Name  string `json:"marc_name"`
+	Model_Name string `json:"model_name"`
+}

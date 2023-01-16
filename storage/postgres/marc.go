@@ -104,3 +104,25 @@ func (r *marcsRepasitory) Delete(id string) (*pb.Marc, error) {
 	}
 	return marc, nil
 }
+
+func (r *marcsRepasitory) GetMarcModels(id string) ([]*pb.GetMarcModels, error) {
+	var models []*pb.GetMarcModels
+	query := `SELECT models.id,a.name,models.name from marc a join models on models.marc_id=a.id where a.deleted_at is null and models.deleted_at is null and a.id=$1`
+	rows, err := r.db.Query(query, id)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		model := pb.GetMarcModels{}
+		err := rows.Scan(
+			&model.Id,
+			&model.Marc_Name,
+			&model.Model_Name,
+		)
+		if err != nil {
+			return nil, err
+		}
+		models = append(models, &model)
+	}
+	return models, nil
+}

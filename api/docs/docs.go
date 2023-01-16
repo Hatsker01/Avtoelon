@@ -486,50 +486,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/cars/:id": {
-            "delete": {
-                "description": "This API for deleting car by id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "car"
-                ],
-                "summary": "DeleteCar",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Car_Id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/structs.Car"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/structs.StandardErrorModel"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/structs.StandardErrorModel"
-                        }
-                    }
-                }
-            }
-        },
         "/v1/cars/getAll": {
             "get": {
                 "description": "This API for getting all cars",
@@ -675,6 +631,50 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/structs.UpdateCar"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cars/{id}": {
+            "delete": {
+                "description": "This API for deleting car by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "DeleteCar",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Car_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -1695,6 +1695,50 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/structs.Marc"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/marcModel/{id}": {
+            "get": {
+                "description": "This API for getting marc models",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "marc"
+                ],
+                "summary": "Get Marc Model",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Marc_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.GetMarcModels"
                         }
                     },
                     "400": {
@@ -4328,6 +4372,20 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "structs.GetMarcModels": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "marc_name": {
+                    "type": "string"
+                },
+                "model_name": {
                     "type": "string"
                 }
             }

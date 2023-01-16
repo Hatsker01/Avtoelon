@@ -144,7 +144,7 @@ func (h *handlerV1) GetAllCars(c *gin.Context) {
 // @Success 200 {object} structs.Car
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
-// @Router /v1/cars/:id [delete]
+// @Router /v1/cars/{id} [delete]
 func (h *handlerV1) DeleteCar(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
