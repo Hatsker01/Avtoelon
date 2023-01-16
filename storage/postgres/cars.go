@@ -168,7 +168,7 @@ func (r *carsRepasitory) GetCar(id string) (*pb.Car, error) {
 func (r *carsRepasitory) GetAllCars() ([]*pb.Car, error) {
 	cars := []*pb.Car{}
 	query := `SELECT id,category_id,marc_id,model_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
-	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,additionally_id,add_info,region_id,city_id,
+	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
 	phone,created_at,updated_at from cars where deleted_at is null`
 	rows, err := r.db.Query(query)
 	if err != nil {
