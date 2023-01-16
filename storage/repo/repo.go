@@ -138,3 +138,10 @@ type MarcsRepoInterface interface {
 	Delete(id string) (*pb.Marc, error)
 	GetMarcModels(id string) ([]*pb.GetMarcModels, error)
 }
+
+type UsersRepoInterface interface {
+	Create(user *pb.CreateUser) (*pb.User, error)
+	Get(id string) (*pb.User, error)
+	GetAll() ([]*pb.User, error)
+	Delete(id string) (*pb.User, error)
+}
