@@ -149,6 +149,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/marc/:id", handlerV1.GetMarc)
 	api.GET("/marcs", handlerV1.GetAllMarc)
 	api.DELETE("/marc/:id", handlerV1.DeleteMarc)
+	api.GET("/marcModel/:id", handlerV1.GetMarcModel)
 
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

@@ -91,17 +91,17 @@ func (h *handlerV1) GetCategory(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id:=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewCategoryRepasitory(h.db).GetCategory(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewCategoryRepasitory(h.db).GetCategory(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting category by id",logger.Error(err))
+		h.log.Error("failed while getting category by id", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // GetAllCategory ...
@@ -114,16 +114,16 @@ func (h *handlerV1) GetCategory(c *gin.Context) {
 // @Failuer 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/categories [get]
-func (h *handlerV1) GetAllCategory(c *gin.Context){
-	response,err:=postgres.NewCategoryRepasitory(h.db).GetAllCategory()
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+func (h *handlerV1) GetAllCategory(c *gin.Context) {
+	response, err := postgres.NewCategoryRepasitory(h.db).GetAllCategory()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while hetting all categories",logger.Error(err))
+		h.log.Error("failed while hetting all categories", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // DeleteCategory ...
@@ -137,21 +137,19 @@ func (h *handlerV1) GetAllCategory(c *gin.Context){
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/category/{id} [delete]
-func (h *handlerV1) DeleteCategory(c *gin.Context){
+func (h *handlerV1) DeleteCategory(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id:=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewCategoryRepasitory(h.db).DeleteCategory(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewCategoryRepasitory(h.db).DeleteCategory(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while deleting category",logger.Error(err))
+		h.log.Error("failed while deleting category", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
-
-

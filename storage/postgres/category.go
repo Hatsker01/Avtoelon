@@ -69,7 +69,7 @@ func (r *categoryRepasitory) GetCategory(id string)(*pb.Category,error){
 
 func (r *categoryRepasitory) GetAllCategory()([]*pb.Category,error){
 	var categories []*pb.Category
-	query:=`SELETECT id,name,category_id,updated_at from category where deleted_at is null`
+	query:=`SELECT id,name,category_id,updated_at from category where deleted_at is null`
 	rows,err:=r.db.Query(query)
 	if err!=nil{
 		return nil,err

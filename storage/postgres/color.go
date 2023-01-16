@@ -71,7 +71,7 @@ func (r *colorRepasitory) Get(id string) (*pb.Color, error) {
 
 func (r *colorRepasitory) GetAll() ([]*pb.Color, error) {
 	var colors []*pb.Color
-	query := `SELECT id,name,created_at,updated_at where deleted_at is null`
+	query := `SELECT id,name,created_at,updated_at from color where deleted_at is null`
 	rows, err := r.db.Query(query)
 	if err != nil {
 		return nil, err

@@ -70,7 +70,7 @@ func (r *bodyRepasitory) GetBody(id string) (*pb.Body, error) {
 
 func (r *bodyRepasitory) GetAllBody() ([]*pb.Body, error) {
 	var bodies []*pb.Body
-	query := `SELECT id,name,created_at,updated_at where deleted_at is null`
+	query := `SELECT id,name,created_at,updated_at from body where deleted_at is null`
 	rows, err := r.db.Query(query)
 	if err != nil {
 		return nil, err

@@ -70,7 +70,7 @@ func (r *outsideRepasitory) GetOutside(id string) (*pb.Outside, error) {
 
 func (r *outsideRepasitory) GetAllOutside() ([]*pb.Outside, error) {
 	var outsides []*pb.Outside
-	query := `SELECT id,name,created_at,updated_at where deleted_at is null`
+	query := `SELECT id,name,created_at,updated_at from outside where deleted_at is null`
 	rows, err := r.db.Query(query)
 	if err != nil {
 		return nil, err

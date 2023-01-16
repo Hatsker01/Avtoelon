@@ -17,7 +17,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param marc body structs.CreateMarc true "CreateMarc"
-// @Success 200 {object} structs.Marc  
+// @Success 200 {object} structs.Marc
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/marc [post]
@@ -159,7 +159,7 @@ func (h *handlerV1) DeleteMarc(c *gin.Context) {
 // Get Marc Models ...
 // @Summary Get Marc Model
 // @Description This API for getting marc models
-// @Tags marc 
+// @Tags marc
 // @Accept json
 // @Produce json
 // @Param id path string true "Marc_Id"
@@ -167,19 +167,19 @@ func (h *handlerV1) DeleteMarc(c *gin.Context) {
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/marcModel/{id} [get]
-func (h *handlerV1) GetMarcModel(c *gin.Context){
+func (h *handlerV1) GetMarcModel(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
 	id := c.Param("id")
 
-	response,err:=postgres.NewMarcsRepo(h.db).GetMarcModels(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewMarcsRepo(h.db).GetMarcModels(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting marc models",logger.Error(err))
+		h.log.Error("failed while getting marc models", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
