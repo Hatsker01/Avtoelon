@@ -145,3 +145,11 @@ type UsersRepoInterface interface {
 	GetAll() ([]*pb.User, error)
 	Delete(id string) (*pb.User, error)
 }
+
+type PositionRepoInterface interface {
+	Create(pos *pb.CreatePosition) (*pb.Position, error)
+	Update(upPos *pb.UpdatePostionReq) (*pb.Position, error)
+	Get(id string) (*pb.Position, error)
+	GetAll() ([]*pb.Position, error)
+	Delete(id string) (*pb.Position, error)
+}

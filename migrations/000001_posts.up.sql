@@ -1,9 +1,11 @@
 CREATE TABLE cars
 (
     id UUID PRIMARY KEY,
+    user_id UUID,
     category_id BIGINT,
     marc_id BIGINT,
     model_id BIGINT,
+    pozition_id BIGINT,
     body_id BIGINT,
     date DATE,
     price BIGINT,
