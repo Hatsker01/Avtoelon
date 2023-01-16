@@ -103,6 +103,8 @@ definitions:
         type: integer
       updated_at:
         type: string
+      user_id:
+        type: string
     type: object
   structs.Cars:
     properties:
@@ -246,6 +248,8 @@ definitions:
         type: array
       transmission_id:
         type: integer
+      user_id:
+        type: string
     required:
     - add_info
     - additional_id
@@ -270,6 +274,7 @@ definitions:
     - region_id
     - salon_id
     - transmission_id
+    - user_id
     type: object
   structs.CreateCity:
     properties:
@@ -335,6 +340,16 @@ definitions:
       name:
         type: string
     required:
+    - name
+    type: object
+  structs.CreatePosition:
+    properties:
+      model_id:
+        type: integer
+      name:
+        type: string
+    required:
+    - model_id
     - name
     type: object
   structs.CreateRegion:
@@ -602,6 +617,26 @@ definitions:
           $ref: '#/definitions/structs.Outside'
         type: array
     type: object
+  structs.Position:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      model_Id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  structs.Positions:
+    properties:
+      positions:
+        items:
+          $ref: '#/definitions/structs.Position'
+        type: array
+    type: object
   structs.Region:
     properties:
       created_at:
@@ -855,6 +890,13 @@ definitions:
         type: string
     type: object
   structs.UpdateOutsideReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  structs.UpdatePostionReq:
     properties:
       id:
         type: integer
@@ -2905,6 +2947,145 @@ paths:
       summary: GetAllOutside
       tags:
       - outside
+  /v1/position:
+    post:
+      consumes:
+      - application/json
+      description: This API for creating position
+      parameters:
+      - description: CreatePosition
+        in: body
+        name: position
+        required: true
+        schema:
+          $ref: '#/definitions/structs.CreatePosition'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/structs.Position'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Create Position
+      tags:
+      - position
+    put:
+      consumes:
+      - application/json
+      description: This API for updating position
+      parameters:
+      - description: UpdatePosition
+        in: body
+        name: position
+        required: true
+        schema:
+          $ref: '#/definitions/structs.UpdatePostionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Position'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UpdatePosition
+      tags:
+      - position
+  /v1/position/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API for deleting position by ID
+      parameters:
+      - description: Position_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Position'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Delete Position
+      tags:
+      - position
+    get:
+      consumes:
+      - application/json
+      description: This API for getting position by Id
+      parameters:
+      - description: Position_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Position'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Position By Id
+      tags:
+      - position
+  /v1/positions:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting all positions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Positions'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get All Positions
+      tags:
+      - position
   /v1/region:
     post:
       consumes:

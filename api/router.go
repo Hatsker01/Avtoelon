@@ -157,6 +157,12 @@ func New(option Option) *gin.Engine {
 	api.GET("/users", handlerV1.GetAllUser)
 	api.DELETE("/user/:id", handlerV1.DeleteUser)
 
+	//Position
+	api.POST("/position", handlerV1.CreatePosition)
+	api.PUT("/position", handlerV1.UpdatePosition)
+	api.GET("/position/:id", handlerV1.GetPosition)
+	api.GET("/positions", handlerV1.GetAllPositions)
+	api.DELETE("/positions", handlerV1.DeletePosition)
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 

@@ -93,19 +93,18 @@ func (h *handlerV1) GetPosition(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id:=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewPositionRepasitory(h.db).Get(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewPositionRepasitory(h.db).Get(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting position by id",logger.Error(err))
-		return 
+		h.log.Error("failed while getting position by id", logger.Error(err))
+		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
-
 
 // Get All Positions ...
 // @Summary Get All Positions
@@ -117,22 +116,22 @@ func (h *handlerV1) GetPosition(c *gin.Context) {
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/positions [get]
-func (h *handlerV1) GetAllPositions(c *gin.Context){
-	response,err:=postgres.NewPositionRepasitory(h.db).GetAll()
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+func (h *handlerV1) GetAllPositions(c *gin.Context) {
+	response, err := postgres.NewPositionRepasitory(h.db).GetAll()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while geting all positions",logger.Error(err))
+		h.log.Error("failed while geting all positions", logger.Error(err))
 		return
 	}
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
 // Delete Position By Id
 // @Summary Delete Position
 // @Description This API for deleting position by ID
-// @Tags position 
+// @Tags position
 // @Accept json
 // @Produce json
 // @Param id path string true "Position_Id"
@@ -140,17 +139,19 @@ func (h *handlerV1) GetAllPositions(c *gin.Context){
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/position/{id} [delete]
-func(h *handlerV1) DeletePosition(c *gin.Context){
+func (h *handlerV1) DeletePosition(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id:=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewPositionRepasitory(h.db).Delete(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewPositionRepasitory(h.db).Delete(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while deleting position by Id")
+		h.log.Error("failed while deleting position by Id", logger.Error(err))
+		return
 	}
+	c.JSON(http.StatusAccepted, response)
 }
