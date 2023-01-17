@@ -862,6 +862,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/category/car/{id}": {
+            "get": {
+                "description": "This API for getting car by category ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "Get Car By Category Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Category_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/category/{id}": {
             "get": {
                 "description": "This API for getting category by id",

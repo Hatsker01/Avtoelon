@@ -37,7 +37,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/cars/getAll", handlerV1.GetAllCars)
 	api.DELETE("/cars/:id", handlerV1.DeleteCar)
 	api.GET("/cars/getInfo/:id", handlerV1.GetCarInfo)
-	api.GET("/cars/user/:id",handlerV1.GetUserCar)
+	api.GET("/cars/user/:id", handlerV1.GetUserCar)
 
 	//Outside
 	api.POST("/outside", handlerV1.CreateOutside)
@@ -59,6 +59,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/category/:id", handlerV1.GetCategory)
 	api.GET("/categories", handlerV1.GetAllCategory)
 	api.DELETE("/category/:id", handlerV1.DeleteCategory)
+	api.GET("/category/car/:id", handlerV1.GetCarByCategory)
 
 	//Body
 	api.POST("/body", handlerV1.CreateBody)

@@ -25,6 +25,7 @@ type CategoryRepoInterface interface {
 	GetCategory(id string) (*pb.Category, error)
 	GetAllCategory() ([]*pb.Category, error)
 	DeleteCategory(id string) (*pb.Category, error)
+	GetCarByCategory(id string) (*pb.Car, error)
 }
 
 type ModelRepoInterface interface {
