@@ -78,6 +78,7 @@ type DriveUnitRepoInterface interface {
 	Get(id string) (*pb.Drive_Unit, error)
 	GetAll() ([]*pb.Drive_Unit, error)
 	Delete(id string) (*pb.Drive_Unit, error)
+	GetCarByDriveUnit(id string) (*pb.Car, error)
 }
 
 type OpticRepoInterface interface {

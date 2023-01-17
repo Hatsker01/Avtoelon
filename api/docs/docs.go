@@ -1589,6 +1589,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/drive/car/{id}": {
+            "get": {
+                "description": "This API for getting car by drive_unit Id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "drive_unit"
+                ],
+                "summary": "Get Car By Drive_unit Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Drive_Unit_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/drive/{id}": {
             "get": {
                 "description": "This API for getting drive_unit by id",

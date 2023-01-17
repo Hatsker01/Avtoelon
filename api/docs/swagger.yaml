@@ -2045,6 +2045,35 @@ paths:
       summary: GetDriveUnit
       tags:
       - drive_unit
+  /v1/drive/car/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting car by drive_unit Id
+      parameters:
+      - description: Drive_Unit_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Car By Drive_unit Id
+      tags:
+      - drive_unit
   /v1/drives:
     get:
       consumes:
