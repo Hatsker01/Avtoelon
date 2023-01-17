@@ -68,6 +68,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/body/:id", handlerV1.GetBody)
 	api.GET("/bodies", handlerV1.GetAllBody)
 	api.DELETE("/body/:id", handlerV1.DeleteBody)
+	api.GET("/body/car/:id", handlerV1.GetCarByBody)
 
 	//Oil
 	api.POST("/oil", handlerV1.CreateOil)

@@ -1174,7 +1174,7 @@ paths:
       summary: UpdateBody
       tags:
       - body
-  /v1/body/:id:
+  /v1/body/{id}:
     delete:
       consumes:
       - application/json
@@ -1203,7 +1203,6 @@ paths:
       summary: DeleteBody
       tags:
       - body
-  /v1/body/{id}:
     get:
       consumes:
       - application/json
@@ -1230,6 +1229,34 @@ paths:
           schema:
             $ref: '#/definitions/structs.StandardErrorModel'
       summary: GetBody
+      tags:
+      - body
+  /v1/body/car/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Car By Id
       tags:
       - body
   /v1/cars:

@@ -352,9 +352,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/body/:id": {
-            "delete": {
-                "description": "This API for deleting body",
+        "/v1/body/car/{id}": {
+            "get": {
                 "consumes": [
                     "application/json"
                 ],
@@ -364,7 +363,7 @@ const docTemplate = `{
                 "tags": [
                     "body"
                 ],
-                "summary": "DeleteBody",
+                "summary": "Get Car By Id",
                 "parameters": [
                     {
                         "type": "string",
@@ -378,7 +377,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/structs.Body"
+                            "$ref": "#/definitions/structs.Car"
                         }
                     },
                     "400": {
@@ -409,6 +408,48 @@ const docTemplate = `{
                     "body"
                 ],
                 "summary": "GetBody",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Body_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Body"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This API for deleting body",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "body"
+                ],
+                "summary": "DeleteBody",
                 "parameters": [
                     {
                         "type": "string",

@@ -43,6 +43,7 @@ type BodyRepoInterface interface {
 	GetBody(id string) (*pb.Body, error)
 	GetAllBody() ([]*pb.Body, error)
 	DeleteBody(id string) (*pb.Body, error)
+	GetCarByBody(id string) (*pb.Car, error)
 }
 
 type OilRepoInterface interface {

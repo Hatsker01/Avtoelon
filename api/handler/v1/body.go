@@ -136,7 +136,7 @@ func (h *handlerV1) GetAllBody(c *gin.Context) {
 // @Success 200 {object} structs.Body
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
-// @Router /v1/body/:id [delete]
+// @Router /v1/body/{id} [delete]
 func (h *handlerV1) DeleteBody(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
@@ -149,6 +149,34 @@ func (h *handlerV1) DeleteBody(c *gin.Context) {
 			"error": err.Error(),
 		})
 		h.log.Error("failed while deleting body", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}
+
+// Get Car By Body Id ...
+// @Summary Get Car By Id
+// @Desctiption This API for getting car By Body Id
+// @Tags body
+// @Accept json
+// @Produce json
+// @Param id path string true "Body_Id"
+// @Success 200 {object} structs.Car
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/body/car/{id} [get]
+func (h *handlerV1) GetCarByBody(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	id := c.Param("id")
+
+	response, err := postgres.NewBodyRepo(h.db).GetCarByBody(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car by body id", logger.Error(err))
 		return
 	}
 	c.JSON(http.StatusAccepted, response)
