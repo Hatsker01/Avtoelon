@@ -432,3 +432,33 @@ func (h *handlerV1) GetCarInfo(c *gin.Context) {
 
 	c.JSON(http.StatusAccepted, car)
 }
+
+// Get User Cars ...
+// @Summary Get User Cars
+// @Description This API for getting users' cars
+// @Tags car
+// @Accept json
+// @Produce json
+// @Param id path string true "User_Id"
+// @Success 200 {object} structs.Car
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/cars/user/{id} [get]
+func (h *handlerV1)GetUserCar(c *gin.Context){
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	id :=c.Param("id")
+
+	response,err:=postgres.NewCarsRepo(h.db).UserCars(id)
+	if err!=nil{
+		c.JSON(http.StatusInternalServerError,gin.H{
+			"error":err.Error(),
+		})
+		h.log.Error("failed while getting users' car",logger.Error(err))
+		return
+	}
+
+	c.JSON(http.StatusAccepted,response)
+}
+

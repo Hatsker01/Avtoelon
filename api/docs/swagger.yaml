@@ -91,6 +91,8 @@ definitions:
         type: array
       phone:
         type: string
+      position_id:
+        type: integer
       price:
         type: integer
       region_id:
@@ -238,6 +240,8 @@ definitions:
         type: array
       phone:
         type: string
+      position_id:
+        type: integer
       price:
         type: integer
       region_id:
@@ -270,6 +274,7 @@ definitions:
     - options_id
     - outside_id
     - phone
+    - position_id
     - price
     - region_id
     - salon_id
@@ -1395,6 +1400,35 @@ paths:
           schema:
             $ref: '#/definitions/structs.StandardErrorModel'
       summary: UpdateCar
+      tags:
+      - car
+  /v1/cars/user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting users' cars
+      parameters:
+      - description: User_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get User Cars
       tags:
       - car
   /v1/categories:

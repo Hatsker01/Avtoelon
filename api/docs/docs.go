@@ -655,6 +655,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/cars/user/{id}": {
+            "get": {
+                "description": "This API for getting users' cars",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get User Cars",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/cars/{id}": {
             "delete": {
                 "description": "This API for deleting car by id",
@@ -4205,6 +4249,9 @@ const docTemplate = `{
                 "phone": {
                     "type": "string"
                 },
+                "position_id": {
+                    "type": "integer"
+                },
                 "price": {
                     "type": "integer"
                 },
@@ -4378,6 +4425,7 @@ const docTemplate = `{
                 "options_id",
                 "outside_id",
                 "phone",
+                "position_id",
                 "price",
                 "region_id",
                 "salon_id",
@@ -4456,6 +4504,9 @@ const docTemplate = `{
                 },
                 "phone": {
                     "type": "string"
+                },
+                "position_id": {
+                    "type": "integer"
                 },
                 "price": {
                     "type": "integer"
