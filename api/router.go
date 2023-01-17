@@ -52,6 +52,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/model/:id", handlerV1.GetModel)
 	api.GET("/model/getAll", handlerV1.GetAllModels)
 	api.DELETE("/model/:id", handlerV1.DeleteModel)
+	api.GET("/model/car/:id", handlerV1.GetCarByModel)
 
 	//Category
 	api.POST("/category", handlerV1.CreateCategory)

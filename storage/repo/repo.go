@@ -34,6 +34,7 @@ type ModelRepoInterface interface {
 	GetModel(id string) (*pb.Model, error)
 	GetAllModels() ([]*pb.Model, error)
 	DeleteModel(id string) (*pb.Model, error)
+	GetCarByModel(id string) (*pb.Car, error)
 }
 
 type BodyRepoInterface interface {

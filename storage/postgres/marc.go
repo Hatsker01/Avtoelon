@@ -133,7 +133,7 @@ func (r *marcsRepasitory) GetCarByMarc(id string) (*pb.Car, error) {
 	var updated_at sql.NullTime
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars JOIN marc ON cars.category_id=marc.id and cars.deleted_at is null and marc.id=$1`
+	phone,created_at,updated_at from cars JOIN marc ON cars.marc_id=marc.id and cars.deleted_at is null and marc.id=$1`
 	err := r.db.QueryRow(query, id).Scan(
 		&newCar.Id,
 		&newCar.User_Id,
