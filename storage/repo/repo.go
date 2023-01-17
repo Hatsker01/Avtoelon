@@ -69,6 +69,7 @@ type ColorRepoInterface interface {
 	Get(id string) (*pb.Color, error)
 	GetAll() ([]*pb.Color, error)
 	Delete(id string) (*pb.Color, error)
+	GetCarByColor(id string) (*pb.Car, error)
 }
 
 type DriveUnitRepoInterface interface {

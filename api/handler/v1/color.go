@@ -155,3 +155,31 @@ func (h *handlerV1) DeleteColor(c *gin.Context) {
 	}
 	c.JSON(http.StatusAccepted, response)
 }
+
+// Get Car By Color ...
+// @Summary Get Car By Color Id
+// @Description This API for getting car by color Id
+// @Tags color
+// @Accept json
+// @Produce json
+// @Param id path string true "Color_Id"
+// @Success 200 {object} structs.Car
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/color/car/{id} [get]
+func (h *handlerV1) GetCarByColor(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	id := c.Param("id")
+
+	response, err := postgres.NewColorRepasitory(h.db).GetCarByColor(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car by marc", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}

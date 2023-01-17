@@ -1877,6 +1877,35 @@ paths:
       summary: GetColorById
       tags:
       - color
+  /v1/color/car/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting car by color Id
+      parameters:
+      - description: Color_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Car By Color Id
+      tags:
+      - color
   /v1/colors:
     get:
       consumes:

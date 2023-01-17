@@ -6,6 +6,7 @@ import (
 
 	"github.com/Avtoelon/storage/repo"
 	"github.com/jmoiron/sqlx"
+	"github.com/lib/pq"
 
 	pb "github.com/Avtoelon/pkg/structs"
 )
@@ -107,4 +108,49 @@ func (r *colorRepasitory) Delete(id string) (*pb.Color, error) {
 		return nil, err
 	}
 	return color, err
+}
+
+func (r *colorRepasitory) GetCarByColor(id string) (*pb.Car, error) {
+	newCar := pb.Car{}
+	var updated_at sql.NullTime
+	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
+	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
+	phone,created_at,updated_at from cars JOIN color ON cars.color_id=color.id and cars.deleted_at is null and color.id=$1`
+	err := r.db.QueryRow(query, id).Scan(
+		&newCar.Id,
+		&newCar.User_Id,
+		&newCar.Category_Id,
+		&newCar.Marc_Id,
+		&newCar.Model_Id,
+		&newCar.Position_Id,
+		&newCar.Body_Id,
+		&newCar.Date,
+		&newCar.Price,
+		&newCar.Auction,
+		&newCar.Enginee,
+		&newCar.Oil_Id,
+		&newCar.Transmission_id,
+		&newCar.Milage,
+		&newCar.Color_id,
+		&newCar.Drive_unit_id,
+		pq.Array(&newCar.Outside_Id),
+		pq.Array(&newCar.Optic_Id),
+		pq.Array(&newCar.Salon_Id),
+		pq.Array(&newCar.Media_Id),
+		pq.Array(&newCar.Options_Id),
+		pq.Array(&newCar.Additionally_Id),
+		&newCar.Add_Info,
+		&newCar.Region_Id,
+		&newCar.City_Id,
+		&newCar.Phone,
+		&newCar.Created_at,
+		&updated_at,
+	)
+	if err != nil {
+		return nil, err
+	}
+	if updated_at.Valid {
+		newCar.Updated_at = updated_at.Time.String()
+	}
+	return &newCar, nil
 }

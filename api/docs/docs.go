@@ -1334,6 +1334,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/color/car/{id}": {
+            "get": {
+                "description": "This API for getting car by color Id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "color"
+                ],
+                "summary": "Get Car By Color Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Color_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/color/{id}": {
             "get": {
                 "description": "This API for getting color by id",

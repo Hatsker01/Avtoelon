@@ -91,6 +91,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/color/:id", handlerV1.GetColor)
 	api.GET("/colors", handlerV1.GetAllColors)
 	api.DELETE("/color/:id", handlerV1.DeleteColor)
+	api.GET("/color/car/:id", handlerV1.GetCarByColor)
 
 	//Drive_Unit
 	api.POST("/drive", handlerV1.CreateDrive)
