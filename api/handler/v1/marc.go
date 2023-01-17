@@ -183,3 +183,31 @@ func (h *handlerV1) GetMarcModel(c *gin.Context) {
 	}
 	c.JSON(http.StatusAccepted, response)
 }
+
+// Get Car By Marc ...
+// @Summary Get Car By Marc Id
+// @Description This API for getting car by marc Id
+// @Tags marc
+// @Accept json
+// @Produce json
+// @Param id path string true "Marc_Id"
+// @Success 200 {object} structs.Car
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/marc/car/{id} [get]
+func (h *handlerV1) GetCarByMarc(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	id := c.Param("id")
+
+	response, err := postgres.NewMarcsRepo(h.db).GetCarByMarc(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car by marc", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}

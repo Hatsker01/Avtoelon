@@ -152,6 +152,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/marcs", handlerV1.GetAllMarc)
 	api.DELETE("/marc/:id", handlerV1.DeleteMarc)
 	api.GET("/marcModel/:id", handlerV1.GetMarcModel)
+	api.GET("/marc/car/:id", handlerV1.GetCarByMarc)
 
 	//User
 	api.POST("/user", handlerV1.CreateUser)

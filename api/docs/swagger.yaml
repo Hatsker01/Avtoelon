@@ -2127,6 +2127,35 @@ paths:
       summary: Get Marc By Id
       tags:
       - marc
+  /v1/marc/car/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting car by marc Id
+      parameters:
+      - description: Marc_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Car By Marc Id
+      tags:
+      - marc
   /v1/marcModel/{id}:
     get:
       consumes:

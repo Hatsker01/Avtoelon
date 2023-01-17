@@ -1702,6 +1702,50 @@
                 }
             }
         },
+        "/v1/marc/car/{id}": {
+            "get": {
+                "description": "This API for getting car by marc Id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "marc"
+                ],
+                "summary": "Get Car By Marc Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Marc_Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/marc/{id}": {
             "get": {
                 "description": "This API for getting marc by ID",

@@ -139,6 +139,7 @@ type MarcsRepoInterface interface {
 	GetAll() ([]*pb.Marc, error)
 	Delete(id string) (*pb.Marc, error)
 	GetMarcModels(id string) ([]*pb.GetMarcModels, error)
+	GetCarByMarc(id string) (*pb.Car, error)
 }
 
 type UsersRepoInterface interface {
