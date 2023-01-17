@@ -60,6 +60,7 @@ type TransmissionRepoInterface interface {
 	Get(id string) (*pb.Transmission, error)
 	GetAll() ([]*pb.Transmission, error)
 	Delete(id string) (*pb.Transmission, error)
+	GetCarByTrans(id string) (*pb.Car, error)
 }
 
 type ColorRepoInterface interface {

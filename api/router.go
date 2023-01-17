@@ -83,6 +83,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/transmission/:id", handlerV1.GetTransmission)
 	api.GET("/transmissions", handlerV1.GetAllTrans)
 	api.DELETE("/transmission/:id", handlerV1.DeleteTransmission)
+	api.GET("/transmission/car/:id", handlerV1.GetCarByTrans)
 
 	//Color
 	api.POST("/color", handlerV1.CreateColor)
