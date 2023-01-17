@@ -127,6 +127,7 @@ type RegionsRepoInterface interface {
 	Get(id string) (*pb.Region, error)
 	GetAll() ([]*pb.Region, error)
 	Delete(id string) (*pb.Region, error)
+	GetCarByRegion(id string) (*pb.Car, error)
 }
 
 type CitiesRepoInterface interface {

@@ -142,6 +142,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/region/:id", handlerV1.GetRegion)
 	api.GET("/regions", handlerV1.GetAllRegions)
 	api.DELETE("/region/:id", handlerV1.DeleteRegion)
+	api.GET("/region/car/:id", handlerV1.GetCarByRegion)
 
 	//City
 	api.POST("/city", handlerV1.CreateCity)

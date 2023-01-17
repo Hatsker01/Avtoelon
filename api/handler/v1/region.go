@@ -154,3 +154,31 @@ func (h *handlerV1) DeleteRegion(c *gin.Context) {
 	}
 	c.JSON(http.StatusAccepted, response)
 }
+
+// Get Car By Region ...
+// @Summary Get Car By Region Id
+// @Description This API for getting car by region Id
+// @Tags region
+// @Accept json
+// @Produce json
+// @Param id path string true "Region_Id"
+// @Success 200 {object} structs.Car
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/region/car/{id} [get]
+func (h *handlerV1) GetCarByRegion(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	id := c.Param("id")
+
+	response, err := postgres.NewRegionsRepo(h.db).GetCarByRegion(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car by region", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}

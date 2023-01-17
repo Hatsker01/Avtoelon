@@ -3408,6 +3408,35 @@ paths:
       summary: GetRegionById
       tags:
       - region
+  /v1/region/car/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting car by region Id
+      parameters:
+      - description: Region_Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Car By Region Id
+      tags:
+      - region
   /v1/regions:
     get:
       consumes:
