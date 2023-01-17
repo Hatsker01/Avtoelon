@@ -5,7 +5,7 @@ CREATE TABLE cars
     category_id BIGINT,
     marc_id BIGINT,
     model_id BIGINT,
-    pozition_id BIGINT,
+    position_id BIGINT,
     body_id BIGINT,
     date DATE,
     price BIGINT,

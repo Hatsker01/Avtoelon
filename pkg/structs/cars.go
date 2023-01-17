@@ -6,6 +6,7 @@ type Car struct {
 	Category_Id     int      `json:"category_id"`
 	Marc_Id         int      `json:"marc_id"`
 	Model_Id        int      `json:"model_id"`
+	Position_Id     int      `json:"position_id"`
 	Body_Id         int      `json:"body_id"`
 	Date            string   `json:"date"`
 	Price           int      `json:"price"`
@@ -64,6 +65,7 @@ type CreateCarReq struct {
 	Category_Id     int      `json:"category_id" binding:"required"`
 	Marc_Id         int      `json:"marc_id" binding:"required"`
 	Model_Id        int      `json:"model_id" binding:"required"`
+	Position_Id     int      `json:"position_id" binding:"required"`
 	Body_Id         int      `json:"body_id" binding:"required"`
 	Date            string   `json:"date" binding:"required"`
 	Price           int      `json:"price" binding:"required"`
