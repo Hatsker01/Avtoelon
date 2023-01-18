@@ -150,6 +150,7 @@ func New(option Option) *gin.Engine {
 	api.GET("/city/:id", handlerV1.GetCity)
 	api.GET("/cities", handlerV1.GetAllCities)
 	api.DELETE("/city/:id", handlerV1.DeleteCity)
+	api.GET("/city/car/:id", handlerV1.GetCarByCity)
 
 	//Marc
 	api.POST("/marc", handlerV1.CreateMarc)

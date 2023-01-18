@@ -155,3 +155,31 @@ func (h *handlerV1) DeleteCity(c *gin.Context) {
 	}
 	c.JSON(http.StatusAccepted, response)
 }
+
+// Get Car By City ...
+// @Summary Get Car By City Id
+// @Description This API for getting car by city Id
+// @Tags city
+// @Accept json
+// @Produce json
+// @Param id path string true "City_Id"
+// @Success 200 {object} structs.Car
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/city/car/{id} [get]
+func (h *handlerV1) GetCarByCity(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	id := c.Param("id")
+
+	response, err := postgres.NewCitiesRepo(h.db).GetCarByCity(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car by city", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}

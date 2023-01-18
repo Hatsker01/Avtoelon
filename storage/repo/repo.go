@@ -136,6 +136,7 @@ type CitiesRepoInterface interface {
 	Get(id string) (*pb.City, error)
 	GetAll() ([]*pb.City, error)
 	Delete(id string) (*pb.City, error)
+	GetCarByCity(id string) (*pb.Car, error)
 }
 
 type MarcsRepoInterface interface {
