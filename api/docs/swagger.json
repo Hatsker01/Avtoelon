@@ -728,6 +728,50 @@
                 }
             }
         },
+        "/v1/cars/{high}": {
+            "get": {
+                "description": "This API for getting cars by price",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get Car By Price",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "High",
+                        "name": "high",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Cars"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/cars/{id}": {
             "delete": {
                 "description": "This API for deleting car by id",

@@ -1289,6 +1289,35 @@ paths:
       summary: CreateCar
       tags:
       - car
+  /v1/cars/{high}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting cars by price
+      parameters:
+      - description: High
+        in: path
+        name: high
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Cars'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Car By Price
+      tags:
+      - car
   /v1/cars/{id}:
     delete:
       consumes:

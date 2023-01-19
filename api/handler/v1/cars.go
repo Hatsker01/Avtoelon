@@ -444,21 +444,56 @@ func (h *handlerV1) GetCarInfo(c *gin.Context) {
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
 // @Router /v1/cars/user/{id} [get]
-func (h *handlerV1)GetUserCar(c *gin.Context){
+func (h *handlerV1) GetUserCar(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
 
-	id :=c.Param("id")
+	id := c.Param("id")
 
-	response,err:=postgres.NewCarsRepo(h.db).UserCars(id)
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	response, err := postgres.NewCarsRepo(h.db).UserCars(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting users' car",logger.Error(err))
+		h.log.Error("failed while getting users' car", logger.Error(err))
 		return
 	}
 
-	c.JSON(http.StatusAccepted,response)
+	c.JSON(http.StatusAccepted, response)
 }
 
+// Get Cars By Price ...
+// @Summary Get Car By Price
+// @Description This API for getting cars by price
+// @Tags car
+// @Accept json
+// @Produce json
+// @Param high path bool true "High"
+// @Success 200 {object} structs.Cars
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/cars/{high} [get]
+func (h *handlerV1) GetCarByPrice(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	param := c.Param("high")
+	high, err := strconv.ParseBool(param)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while parsing string to bool", logger.Error(err))
+		return
+	}
+	response, err := postgres.NewCarsRepo(h.db).GetCarByPrice(high)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car by price", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}

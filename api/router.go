@@ -38,6 +38,7 @@ func New(option Option) *gin.Engine {
 	api.DELETE("/cars/:id", handlerV1.DeleteCar)
 	api.GET("/cars/getInfo/:id", handlerV1.GetCarInfo)
 	api.GET("/cars/user/:id", handlerV1.GetUserCar)
+	api.GET("/cars/:high", handlerV1.GetCarByPrice)
 
 	//Outside
 	api.POST("/outside", handlerV1.CreateOutside)
