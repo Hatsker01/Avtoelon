@@ -509,7 +509,7 @@ func (h *handlerV1) GetCarByPrice(c *gin.Context) {
 // @Success 200 {object} structs.Cars
 // @Failure 400 {object} structs.StandardErrorModel
 // @Failure 500 {object} structs.StandardErrorModel
-// @Router /v1/cars/price/{max}{min} [get]
+// @Router /v1/cars/price/{max}/{min} [get]
 func (h *handlerV1) GetMaxMinCar(c *gin.Context) {
 	var jspbMarshal protojson.MarshalOptions
 	jspbMarshal.UseProtoNames = true
@@ -563,4 +563,54 @@ func (h *handlerV1) GetCarByDate(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusAccepted, response)
+}
+
+// UploadImage ...
+// @Summary UploadImage
+// @Description This API for upload image
+// @Tags car
+// @Accept multipart/form-data
+// @Produce json
+// @Param file formData file true "File"
+// @Param id path string true "Id"
+// @Success 200 {object} structs.Car
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/car/image/{id} [put]
+func (h *handlerV1) UploadImage(c *gin.Context) {
+	file, err := c.FormFile("file")
+
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "No file is received",
+		})
+		return
+	}
+
+	id := c.Param("id")
+	if err != nil {
+		h.log.Error("Failed to parse string to int", logger.Error(err))
+	}
+	response, err := postgres.NewUsersRepasitory(h.db).Get(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed to get news", logger.Error(err))
+		return
+	}
+
+	newFileName := response.Phone + file.Filename[len(file.Filename)-4:]
+
+	if err := c.SaveUploadedFile(file, h.cfg.FilePath+newFileName); err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Unable to save the file",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"type":    "success",
+		"message": "file uploaded",
+	})
 }

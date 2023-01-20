@@ -25,7 +25,7 @@ func (r *usersRepasitory) Create(user *pb.CreateUser) (*pb.User, error) {
 		return nil, err
 	}
 	newUser := pb.User{}
-	query := `INSERT INTO users(id,phone,password,created_at) VALUES ($1,$2,$3,$4) RETURNING id,phone,created_at`
+	query := `INSERT INTO users(id,phone,password,created_at) VALUES ($1,$2,$3,$4) RETURNING id,phone,password,created_at`
 	err = r.db.QueryRow(query, id, user.Phone, user.Password, time.Now().UTC()).Scan(
 		&newUser.Id,
 		&newUser.Phone,
@@ -55,7 +55,7 @@ func (r *usersRepasitory) Get(id string) (*pb.User, error) {
 
 func (r *usersRepasitory) GetAll() ([]*pb.User, error) {
 	var users []*pb.User
-	query := `SELECT id,name,password,created_at from users where deleted_at is null`
+	query := `SELECT id,phone,password,created_at from users where deleted_at is null`
 	rows, err := r.db.Query(query)
 	if err != nil {
 		return nil, err

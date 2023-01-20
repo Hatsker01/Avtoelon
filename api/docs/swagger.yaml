@@ -1259,6 +1259,40 @@ paths:
       summary: Get Car By Id
       tags:
       - body
+  /v1/car/image/{id}:
+    put:
+      consumes:
+      - multipart/form-data
+      description: This API for upload image
+      parameters:
+      - description: File
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Car'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: UploadImage
+      tags:
+      - car
   /v1/cars:
     post:
       consumes:
@@ -1457,7 +1491,7 @@ paths:
       summary: GetCarById
       tags:
       - car
-  /v1/cars/price/{max}{min}:
+  /v1/cars/price/{max}/{min}:
     get:
       consumes:
       - application/json

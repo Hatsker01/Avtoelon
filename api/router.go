@@ -40,8 +40,9 @@ func New(option Option) *gin.Engine {
 	api.GET("/cars/getInfo/:id", handlerV1.GetCarInfo)
 	api.GET("/cars/user/:id", handlerV1.GetUserCar)
 	api.GET("/cars/:high", handlerV1.GetCarByPrice)
-	api.GET("/cars/price/:max:min", handlerV1.GetMaxMinCar)
+	api.GET("/cars/price/:max/:min", handlerV1.GetMaxMinCar)
 	api.GET("/cars/byNew/:new", handlerV1.GetCarByDate)
+	api.PUT("/car/image/:id", handlerV1.UploadImage)
 
 	//Outside
 	api.POST("/outside", handlerV1.CreateOutside)

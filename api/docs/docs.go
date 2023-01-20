@@ -481,6 +481,57 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/car/image/{id}": {
+            "put": {
+                "description": "This API for upload image",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "UploadImage",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "File",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Car"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/cars": {
             "post": {
                 "description": "This API for creating new car for selling",
@@ -694,7 +745,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/cars/price/{max}{min}": {
+        "/v1/cars/price/{max}/{min}": {
             "get": {
                 "description": "This API for getting cars by entering max and min price",
                 "consumes": [
