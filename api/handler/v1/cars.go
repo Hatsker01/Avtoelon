@@ -497,3 +497,70 @@ func (h *handlerV1) GetCarByPrice(c *gin.Context) {
 	}
 	c.JSON(http.StatusAccepted, response)
 }
+
+// Get Car By entering max min price ...
+// @Summary Get Car Max Min price
+// @Description This API for getting cars by entering max and min price
+// @Tags car
+// @Accept json
+// @Produce json
+// @Param max path int true "Max_Price"
+// @Param min path int true "Min_Price"
+// @Success 200 {object} structs.Cars
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/cars/price/{max}{min} [get]
+func (h *handlerV1) GetMaxMinCar(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	max := c.Param("max")
+	min := c.Param("min")
+
+	response, err := postgres.NewCarsRepo(h.db).GetMaxMinCar(max, min)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car with min and max price", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}
+
+// Get Car New Cars ...
+// @Summary Get New Cars
+// @Description This API for getting car by date
+// @Tags car
+// @Accept json
+// @Produce json
+// @Param New path bool true "New"
+// @Success 200 {object} structs.Cars
+// @Failure 400 {object} structs.StandardErrorModel
+// @Failure 500 {object} structs.StandardErrorModel
+// @Router /v1/cars/byNew/{new} [get]
+func (h *handlerV1) GetCarByDate(c *gin.Context) {
+	var jspbMarshal protojson.MarshalOptions
+	jspbMarshal.UseProtoNames = true
+
+	param := c.Param("high")
+	new, err := strconv.ParseBool(param)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while parsing string to bool", logger.Error(err))
+		return
+	}
+
+	response, err := postgres.NewCarsRepo(h.db).GetNewOldCar(new)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while getting car by Date", logger.Error(err))
+		return
+	}
+	c.JSON(http.StatusAccepted, response)
+}

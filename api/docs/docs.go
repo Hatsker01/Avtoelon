@@ -527,6 +527,50 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/cars/byNew/{new}": {
+            "get": {
+                "description": "This API for getting car by date",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get New Cars",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "New",
+                        "name": "New",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Cars"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/cars/getAll": {
             "get": {
                 "description": "This API for getting all cars",
@@ -633,6 +677,57 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/structs.GetCar"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/structs.StandardErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/cars/price/{max}{min}": {
+            "get": {
+                "description": "This API for getting cars by entering max and min price",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get Car Max Min price",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Max_Price",
+                        "name": "max",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Min_Price",
+                        "name": "min",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/structs.Cars"
                         }
                     },
                     "400": {

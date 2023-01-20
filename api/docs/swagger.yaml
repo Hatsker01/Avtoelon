@@ -1347,6 +1347,35 @@ paths:
       summary: DeleteCar
       tags:
       - car
+  /v1/cars/byNew/{new}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting car by date
+      parameters:
+      - description: New
+        in: path
+        name: New
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Cars'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get New Cars
+      tags:
+      - car
   /v1/cars/getAll:
     get:
       consumes:
@@ -1426,6 +1455,40 @@ paths:
           schema:
             $ref: '#/definitions/structs.StandardErrorModel'
       summary: GetCarById
+      tags:
+      - car
+  /v1/cars/price/{max}{min}:
+    get:
+      consumes:
+      - application/json
+      description: This API for getting cars by entering max and min price
+      parameters:
+      - description: Max_Price
+        in: path
+        name: max
+        required: true
+        type: integer
+      - description: Min_Price
+        in: path
+        name: min
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Cars'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structs.StandardErrorModel'
+      summary: Get Car Max Min price
       tags:
       - car
   /v1/cars/updateCar:

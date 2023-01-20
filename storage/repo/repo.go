@@ -10,6 +10,8 @@ type CarsRepoInterface interface {
 	DeleteCar(id string) (*pb.Car, error)
 	UserCars(id string) (*pb.Car, error)
 	GetCarByPrice(t bool) ([]*pb.Car, error)
+	GetMaxMinCar(max, min string) ([]*pb.Car, error)
+	GetNewOldCar(new bool) ([]*pb.Car, error)
 }
 
 type OutsideRepoInterface interface {

@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+	"strconv"
 
 	"time"
 
@@ -285,8 +286,143 @@ func (r *carsRepasitory) GetCarByPrice(t bool) ([]*pb.Car, error) {
 	cars := []*pb.Car{}
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars where deleted_at is null`
+	phone,created_at,updated_at from cars where deleted_at is null ORDER BY price `
 	if t {
+		query += " desc"
+	}
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		car := pb.Car{}
+		var updated_at sql.NullTime
+		err := rows.Scan(
+			&car.Id,
+			&car.User_Id,
+			&car.Category_Id,
+			&car.Marc_Id,
+			&car.Model_Id,
+			&car.Position_Id,
+			&car.Body_Id,
+			&car.Date,
+			&car.Price,
+			&car.Auction,
+			&car.Enginee,
+			&car.Oil_Id,
+			&car.Transmission_id,
+			&car.Milage,
+			&car.Color_id,
+			&car.Drive_unit_id,
+			pq.Array(&car.Outside_Id),
+			pq.Array(&car.Optic_Id),
+			pq.Array(&car.Salon_Id),
+			pq.Array(&car.Media_Id),
+			pq.Array(&car.Options_Id),
+			pq.Array(&car.Additionally_Id),
+			&car.Add_Info,
+			&car.Region_Id,
+			&car.City_Id,
+			&car.Phone,
+			&car.Created_at,
+			&updated_at,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if updated_at.Valid {
+			car.Updated_at = updated_at.Time.String()
+		}
+		cars = append(cars, &car)
+	}
+	return cars, nil
+}
+
+func (r *carsRepasitory) GetCountCars() (int, error) {
+	query := `SELECT count(*) from cars where deleted_at is null`
+	var count int
+	err := r.db.QueryRow(query).Scan(count)
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (r *carsRepasitory) GetMaxMinCar(max, min string) ([]*pb.Car, error) {
+	var low, high int
+	var cars []*pb.Car
+	var err error
+	if max == "" {
+		high, err = r.GetCountCars()
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		high, _ = strconv.Atoi(max)
+	}
+	if min == "" {
+		low = 0
+	} else {
+		low, _ = strconv.Atoi(min)
+	}
+	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
+	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
+	phone,created_at,updated_at from cars where deleted_at is null and price>$1 and price<$2`
+	rows, err := r.db.Query(query, low, high)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		car := pb.Car{}
+		var updated_at sql.NullTime
+		err := rows.Scan(
+			&car.Id,
+			&car.User_Id,
+			&car.Category_Id,
+			&car.Marc_Id,
+			&car.Model_Id,
+			&car.Position_Id,
+			&car.Body_Id,
+			&car.Date,
+			&car.Price,
+			&car.Auction,
+			&car.Enginee,
+			&car.Oil_Id,
+			&car.Transmission_id,
+			&car.Milage,
+			&car.Color_id,
+			&car.Drive_unit_id,
+			pq.Array(&car.Outside_Id),
+			pq.Array(&car.Optic_Id),
+			pq.Array(&car.Salon_Id),
+			pq.Array(&car.Media_Id),
+			pq.Array(&car.Options_Id),
+			pq.Array(&car.Additionally_Id),
+			&car.Add_Info,
+			&car.Region_Id,
+			&car.City_Id,
+			&car.Phone,
+			&car.Created_at,
+			&updated_at,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if updated_at.Valid {
+			car.Updated_at = updated_at.Time.String()
+		}
+		cars = append(cars, &car)
+	}
+	return cars, nil
+
+}
+
+func (r *carsRepasitory) GetNewOldCar(new bool) ([]*pb.Car, error) {
+	cars := []*pb.Car{}
+	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
+	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
+	phone,created_at,updated_at from cars where deleted_at is null order by created_at`
+	if new {
 		query += " desc"
 	}
 	rows, err := r.db.Query(query)

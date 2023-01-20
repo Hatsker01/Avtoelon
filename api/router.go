@@ -31,6 +31,7 @@ func New(option Option) *gin.Engine {
 	})
 	api := router.Group("/v1")
 
+	//Cars
 	api.POST("/cars", handlerV1.CreateCar)
 	api.PUT("/cars/updateCar", handlerV1.UpdateCar)
 	api.GET("/cars/getById/:id", handlerV1.GetCar)
@@ -39,6 +40,8 @@ func New(option Option) *gin.Engine {
 	api.GET("/cars/getInfo/:id", handlerV1.GetCarInfo)
 	api.GET("/cars/user/:id", handlerV1.GetUserCar)
 	api.GET("/cars/:high", handlerV1.GetCarByPrice)
+	api.GET("/cars/price/:max:min", handlerV1.GetMaxMinCar)
+	api.GET("/cars/byNew/:new", handlerV1.GetCarByDate)
 
 	//Outside
 	api.POST("/outside", handlerV1.CreateOutside)
