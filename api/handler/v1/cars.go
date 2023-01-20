@@ -419,6 +419,16 @@ func (h *handlerV1) GetCarInfo(c *gin.Context) {
 	}
 	car.Marc = marc.Name
 
+	position,err:=postgres.NewPositionRepasitory(h.db).Get(strconv.Itoa(response.Position_Id))
+	if err!=nil{
+		c.JSON(http.StatusInternalServerError,gin.H{
+			"error":err.Error(),
+		})
+		h.log.Error("failed while getting position by id",logger.Error(err))
+		return
+	}
+	car.Position=position.Name
+
 	car.Id = response.Id
 	car.Date = response.Date
 	car.Price = response.Price

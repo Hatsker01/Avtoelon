@@ -36,6 +36,7 @@ type GetCar struct {
 	Category     string   `json:"category"`
 	Marc         string   `json:"marc"`
 	Model        string   `json:"model"`
+	Position     string   `json:"position"`
 	Body         string   `json:"body"`
 	Date         string   `json:"date"`
 	Price        int      `json:"price"`
@@ -118,5 +119,3 @@ type UpdateCar struct {
 type Cars struct {
 	Cars []Car `json:"cars"`
 }
-
-
