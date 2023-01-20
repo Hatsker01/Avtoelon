@@ -12,6 +12,7 @@ type CarsRepoInterface interface {
 	GetCarByPrice(t bool) ([]*pb.Car, error)
 	GetMaxMinCar(max, min string) ([]*pb.Car, error)
 	GetNewOldCar(new bool) ([]*pb.Car, error)
+	UploadImage(path, id string) error
 }
 
 type OutsideRepoInterface interface {

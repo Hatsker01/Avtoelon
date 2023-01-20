@@ -419,15 +419,17 @@ func (h *handlerV1) GetCarInfo(c *gin.Context) {
 	}
 	car.Marc = marc.Name
 
-	position,err:=postgres.NewPositionRepasitory(h.db).Get(strconv.Itoa(response.Position_Id))
-	if err!=nil{
-		c.JSON(http.StatusInternalServerError,gin.H{
-			"error":err.Error(),
+	position, err := postgres.NewPositionRepasitory(h.db).Get(strconv.Itoa(response.Position_Id))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-		h.log.Error("failed while getting position by id",logger.Error(err))
+		h.log.Error("failed while getting position by id", logger.Error(err))
 		return
 	}
-	car.Position=position.Name
+	car.Position = position.Name
+
+	car.Image = response.Image
 
 	car.Id = response.Id
 	car.Date = response.Date
@@ -616,6 +618,15 @@ func (h *handlerV1) UploadImage(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"message": "Unable to save the file",
 		})
+		return
+	}
+
+	err = postgres.NewCarsRepo(h.db).UploadImage(h.cfg.FilePath+newFileName, id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		h.log.Error("failed while uploading image", logger.Error(err))
 		return
 	}
 

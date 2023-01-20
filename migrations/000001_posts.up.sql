@@ -26,6 +26,7 @@ CREATE TABLE cars
     region_id INT,
     city_id INT,
     phone VARCHAR(10),
+    image TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     deleted_at TIMESTAMP

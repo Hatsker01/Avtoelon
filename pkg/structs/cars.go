@@ -27,6 +27,7 @@ type Car struct {
 	Region_Id       int      `json:"region_id"`
 	City_Id         int      `json:"city_id"`
 	Phone           string   `json:"phone"`
+	Image           string   `json:"image"`
 	Created_at      string   `json:"created_at"`
 	Updated_at      string   `json:"updated_at"`
 	Deleted_at      string   `json:"deleted_at"`
@@ -57,6 +58,7 @@ type GetCar struct {
 	Region       string   `json:"region"`
 	City         string   `json:"city"`
 	Phone        string   `json:"phone"`
+	Image        string   `json:"image"`
 	Created_at   string   `json:"created_at"`
 	Updated_at   string   `json:"updated_at"`
 }

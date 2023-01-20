@@ -129,9 +129,10 @@ func (r *carsRepasitory) UpdateCar(upCar *pb.Car) (*pb.Car, error) {
 func (r *carsRepasitory) GetCar(id string) (*pb.Car, error) {
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars where deleted_at is null and id = $1`
+	phone,image,created_at,updated_at from cars where deleted_at is null and id = $1`
 	newCar := pb.Car{}
 	var updated_at sql.NullTime
+	var image sql.NullString
 	err := r.db.QueryRow(query, id).Scan(
 		&newCar.Id,
 		&newCar.User_Id,
@@ -159,6 +160,7 @@ func (r *carsRepasitory) GetCar(id string) (*pb.Car, error) {
 		&newCar.Region_Id,
 		&newCar.City_Id,
 		&newCar.Phone,
+		&image,
 		&newCar.Created_at,
 		&updated_at,
 	)
@@ -168,6 +170,9 @@ func (r *carsRepasitory) GetCar(id string) (*pb.Car, error) {
 	if updated_at.Valid {
 		newCar.Updated_at = updated_at.Time.String()
 	}
+	if image.Valid {
+		newCar.Image = image.String
+	}
 	return &newCar, nil
 }
 
@@ -175,7 +180,7 @@ func (r *carsRepasitory) GetAllCars() ([]*pb.Car, error) {
 	cars := []*pb.Car{}
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars where deleted_at is null`
+	phone,image,created_at,updated_at from cars where deleted_at is null`
 	rows, err := r.db.Query(query)
 	if err != nil {
 		return nil, err
@@ -183,6 +188,7 @@ func (r *carsRepasitory) GetAllCars() ([]*pb.Car, error) {
 	for rows.Next() {
 		car := pb.Car{}
 		var updated_at sql.NullTime
+		var image sql.NullString
 		err := rows.Scan(
 			&car.Id,
 			&car.User_Id,
@@ -210,6 +216,7 @@ func (r *carsRepasitory) GetAllCars() ([]*pb.Car, error) {
 			&car.Region_Id,
 			&car.City_Id,
 			&car.Phone,
+			&image,
 			&car.Created_at,
 			&updated_at,
 		)
@@ -218,6 +225,9 @@ func (r *carsRepasitory) GetAllCars() ([]*pb.Car, error) {
 		}
 		if updated_at.Valid {
 			car.Updated_at = updated_at.Time.String()
+		}
+		if image.Valid {
+			car.Image = image.String
 		}
 		cars = append(cars, &car)
 	}
@@ -242,9 +252,10 @@ func (r *carsRepasitory) DeleteCar(id string) (*pb.Car, error) {
 func (r *carsRepasitory) UserCars(id string) (*pb.Car, error) {
 	newCar := pb.Car{}
 	var updated_at sql.NullTime
+	var image sql.NullString
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars JOIN users ON users.id=cars.user_id and users.deleted_at is null and car.deleted_at is null`
+	phone,image,created_at,updated_at from cars JOIN users ON users.id=cars.user_id and users.deleted_at is null and car.deleted_at is null`
 	err := r.db.QueryRow(query, id).Scan(
 		&newCar.Id,
 		&newCar.User_Id,
@@ -272,11 +283,18 @@ func (r *carsRepasitory) UserCars(id string) (*pb.Car, error) {
 		&newCar.Region_Id,
 		&newCar.City_Id,
 		&newCar.Phone,
+		&image,
 		&newCar.Created_at,
 		&updated_at,
 	)
 	if err != nil {
 		return nil, err
+	}
+	if updated_at.Valid {
+		newCar.Updated_at = updated_at.Time.String()
+	}
+	if image.Valid {
+		newCar.Image = image.String
 	}
 	return &newCar, nil
 
@@ -286,7 +304,7 @@ func (r *carsRepasitory) GetCarByPrice(t bool) ([]*pb.Car, error) {
 	cars := []*pb.Car{}
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars where deleted_at is null ORDER BY price `
+	phone,image,created_at,updated_at from cars where deleted_at is null ORDER BY price `
 	if t {
 		query += " desc"
 	}
@@ -296,6 +314,7 @@ func (r *carsRepasitory) GetCarByPrice(t bool) ([]*pb.Car, error) {
 	}
 	for rows.Next() {
 		car := pb.Car{}
+		var image sql.NullString
 		var updated_at sql.NullTime
 		err := rows.Scan(
 			&car.Id,
@@ -324,6 +343,7 @@ func (r *carsRepasitory) GetCarByPrice(t bool) ([]*pb.Car, error) {
 			&car.Region_Id,
 			&car.City_Id,
 			&car.Phone,
+			&image,
 			&car.Created_at,
 			&updated_at,
 		)
@@ -332,6 +352,9 @@ func (r *carsRepasitory) GetCarByPrice(t bool) ([]*pb.Car, error) {
 		}
 		if updated_at.Valid {
 			car.Updated_at = updated_at.Time.String()
+		}
+		if image.Valid {
+			car.Image = image.String
 		}
 		cars = append(cars, &car)
 	}
@@ -367,13 +390,14 @@ func (r *carsRepasitory) GetMaxMinCar(max, min string) ([]*pb.Car, error) {
 	}
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars where deleted_at is null and price>$1 and price<$2`
+	phone,image,created_at,updated_at from cars where deleted_at is null and price>$1 and price<$2`
 	rows, err := r.db.Query(query, low, high)
 	if err != nil {
 		return nil, err
 	}
 	for rows.Next() {
 		car := pb.Car{}
+		var image sql.NullString
 		var updated_at sql.NullTime
 		err := rows.Scan(
 			&car.Id,
@@ -402,6 +426,7 @@ func (r *carsRepasitory) GetMaxMinCar(max, min string) ([]*pb.Car, error) {
 			&car.Region_Id,
 			&car.City_Id,
 			&car.Phone,
+			&image,
 			&car.Created_at,
 			&updated_at,
 		)
@@ -410,6 +435,9 @@ func (r *carsRepasitory) GetMaxMinCar(max, min string) ([]*pb.Car, error) {
 		}
 		if updated_at.Valid {
 			car.Updated_at = updated_at.Time.String()
+		}
+		if image.Valid {
+			car.Image = image.String
 		}
 		cars = append(cars, &car)
 	}
@@ -421,7 +449,7 @@ func (r *carsRepasitory) GetNewOldCar(new bool) ([]*pb.Car, error) {
 	cars := []*pb.Car{}
 	query := `SELECT id,user_id,category_id,marc_id,model_id,position_id,body_id,date,price,auction,enginee,oil_id,transmission_id,milage,
 	color_id,drive_unit_id,outside_id,optic_id,salon_id,media_id,options_id,additionally_id,add_info,region_id,city_id,
-	phone,created_at,updated_at from cars where deleted_at is null order by created_at`
+	phone,image,created_at,updated_at from cars where deleted_at is null order by created_at`
 	if new {
 		query += " desc"
 	}
@@ -431,6 +459,7 @@ func (r *carsRepasitory) GetNewOldCar(new bool) ([]*pb.Car, error) {
 	}
 	for rows.Next() {
 		car := pb.Car{}
+		var image sql.NullString
 		var updated_at sql.NullTime
 		err := rows.Scan(
 			&car.Id,
@@ -459,6 +488,7 @@ func (r *carsRepasitory) GetNewOldCar(new bool) ([]*pb.Car, error) {
 			&car.Region_Id,
 			&car.City_Id,
 			&car.Phone,
+			&image,
 			&car.Created_at,
 			&updated_at,
 		)
@@ -468,7 +498,19 @@ func (r *carsRepasitory) GetNewOldCar(new bool) ([]*pb.Car, error) {
 		if updated_at.Valid {
 			car.Updated_at = updated_at.Time.String()
 		}
+		if image.Valid {
+			car.Image = image.String
+		}
 		cars = append(cars, &car)
 	}
 	return cars, nil
+}
+
+func (r *carsRepasitory) UploadImage(path, id string) error {
+	query := `UPDATE cars SET image=$2 where deleted_at is null and id=$1`
+	_, err := r.db.Exec(query, id, path)
+	if err != nil {
+		return err
+	}
+	return nil
 }
